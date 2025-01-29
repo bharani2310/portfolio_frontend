@@ -1,0 +1,120 @@
+#intro{
+    height: calc(100vh - 4rem);
+    width: 100vw;
+    max-width: 75rem;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+
+}
+
+.editIntro{
+    position: absolute; /* Position the div relative to the viewport */
+  top: 0; /* Align to the top */
+  left: 0; 
+}
+
+.bg{
+    position: absolute;
+    padding: 5rem;
+    top: -4rem;
+    right: 0;
+    z-index: -1;
+    object-fit: cover;
+    height: 100vh;
+    border-radius: 10rem;
+}
+
+.change-button {
+    position: absolute;
+    bottom: 10px; /* Adjust positioning as per your requirement */
+    right: 10px; /* Adjust positioning as per your requirement */
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: none; /* Hide by default */
+    cursor: pointer;
+  }
+
+.profile-container:hover .change-button {
+    display: block;
+  }
+
+.introContent{
+    height: 100vh;
+    width: 100vw;
+    padding: 2rem;
+    font-size: 3rem;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hello{
+    font-size: 1.75rem;
+    font-weight: 200;
+}
+
+.introName{
+    color: yellow;
+}
+
+.introPara{
+    font-size: medium;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.btn{
+    background: white;
+    margin: 1rem 0;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 2rem;
+}
+
+.btnImg{
+    object-fit: cover;
+    margin: 0 0.25rem;
+    height: 1rem;
+}
+
+input[type="file"] {
+    display: none;  
+  }
+  
+  .custom-file-input {
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+  
+
+  
+
+
+@media screen and (max-width:840px){
+    .bg{
+        right: -10vh;        
+    }
+    .introContent{
+        font-size: 10vw;
+    }
+    .hello{
+        font-size: 4.5vw;
+    }
+}
+
+@media screen and (max-width:480px){
+    .bg{
+        height: 50vh;
+        right: -5vh;
+    }
+}

@@ -1,0 +1,35 @@
+
+  .centered-div {
+    width: 100; 
+    padding: 1rem;
+  }
+  
+
+  .image{
+    display: flex;
+    align-items: center;
+  }
+
+  .image img{
+    border-radius: 2rem;
+    padding: 1rem;
+  }
+
+  .current{
+    padding: 1rem;
+  }
+
+
+  .name , .email , .msg , .dateInput{
+    background: none;
+    border: none;
+    font-size: medium;
+    width: 100%;
+    max-width: 40rem;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    background: rgb(40, 40, 40);
+}
