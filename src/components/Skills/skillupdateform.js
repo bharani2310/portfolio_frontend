@@ -109,21 +109,21 @@ const SkillUpdateForm = ({skill}) => {
         setFormData((prev) => ({ ...prev, end: dateStr }));
       },
     });
-  }, []);
+  }, [formData,check,pic]);
 
 
-    useEffect(() => {
-      if (!check && endDateRef.current) {
-        flatpickr(endDateRef.current, {
-          dateFormat: "F Y",
-          altInput: true,
-          altFormat: "F Y",
-          onChange: (selectedDates, dateStr) => {
-            setFormData((prev) => ({ ...prev, end: dateStr }));
-          },
-        });
-      }
-    }, [check]);
+    // useEffect(() => {
+    //   if (!check && endDateRef.current) {
+    //     flatpickr(endDateRef.current, {
+    //       dateFormat: "F Y",
+    //       altInput: true,
+    //       altFormat: "F Y",
+    //       onChange: (selectedDates, dateStr) => {
+    //         setFormData((prev) => ({ ...prev, end: dateStr }));
+    //       },
+    //     });
+    //   }
+    // }, [check]);
   
   return (
      <section id='contactPage'>
