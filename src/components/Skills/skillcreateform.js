@@ -8,7 +8,7 @@ import './../../styles/skillCreateForm.css'
 const SkillCreateForm = () => {
 
   const form = useRef();
-  const [pic,setPic]=useState(null)
+  const [pic,setPic]=useState('')
   const [check,setCheck]=useState(false)
   const endDateRef = useRef(null);
 
@@ -28,6 +28,7 @@ const SkillCreateForm = () => {
       const base64 = await convertToBase64(file);
       setPic(base64);
       console.log("Converted Base64:", base64);
+      console.log("Converted :", pic);
     } catch (error) {
       console.error("Error converting file to Base64:", error);
     }
@@ -51,7 +52,7 @@ const SkillCreateForm = () => {
       end:check ? "Present" : formData.end,
       description: formData.description,
     };
-    console.log(data)
+    console.log("final Data",data)
 
      try {
         const response=await fetch(`${BASE_URL}/createSkill/newSkill`,{
@@ -84,10 +85,11 @@ const SkillCreateForm = () => {
     end:"",
     description: "",
   });
-  console.log(formData)
+  console.log("form",formData)
 
 
   useEffect(() => {
+
     flatpickr("#startDate", {
       dateFormat: "F Y",
       altInput: true,
@@ -104,20 +106,20 @@ const SkillCreateForm = () => {
         setFormData((prev) => ({ ...prev, end: dateStr }));
       },
     });
-  }, []);
+  }, [formData,check,pic]);
 
-  useEffect(() => {
-    if (!check && endDateRef.current) {
-      flatpickr(endDateRef.current, {
-        dateFormat: "F Y",
-        altInput: true,
-        altFormat: "F Y",
-        onChange: (selectedDates, dateStr) => {
-          setFormData((prev) => ({ ...prev, end: dateStr }));
-        },
-      });
-    }
-  }, [check]);
+  // useEffect(() => {
+  //   if (!check && endDateRef.current) {
+  //     flatpickr(endDateRef.current, {
+  //       dateFormat: "F Y",
+  //       altInput: true,
+  //       altFormat: "F Y",
+  //       onChange: (selectedDates, dateStr) => {
+  //         setFormData((prev) => ({ ...prev, end: dateStr }));
+  //       },
+  //     });
+  //   }
+  // }, [check]);
 
 
 
