@@ -2,7 +2,7 @@ import React,{useState ,useEffect,useContext } from 'react'
 import './../../styles/intro.css'
 import btnImg from './../assets/hireme.png'
 import edit from './../../components/assets/pencil.png'
-import bg from './../assets/myImage.jpg'
+import load from './../assets/load.gif'
 import { Link } from 'react-scroll'
 import convertToBase64 from './../Image_conversion/converter.js'
 import {UploadImage,getImage} from './support.js'
@@ -110,8 +110,9 @@ const Intro = () => {
             </div>
         </div> 
 
-        {/* {image ? <img className='bg' src={image} alt='' /> : <img className='bg' src={bg} alt='' />} */}
-        {image ? <img className='bg' src={image} alt='' /> : <img className ='bg' src={profile} alt='' />}
+        {/* {image ? <img className='bg' src={image} alt='' /> : <img className ='bg' src={profile} alt='' />} */}
+
+        {profile ? <img className ='bg' src={profile} alt='' /> : <img src={load} alt='load'/>}
 
 
 
