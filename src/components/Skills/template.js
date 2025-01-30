@@ -96,11 +96,17 @@ const Template = ({id, pic, company,role, duration, description }) => {
             <h5>{updatedString} - {yearDuration}</h5>
             <p>{description}</p>
           </div>
-        <div className="button-container">
+        <div>
             {isLoggedIn?(
               <>
-             <button className="btn" onClick={() => handleEdit(`update-${id}`)}><img src={edit} className="btnImg" /></button>
-             <button className='btn' onClick={handleDelete}><img src={deletebtn}  className='btnImg'/></button>
+             <button
+                className="btn"
+                onClick={() => handleEdit(`update-${id}`)} // Pass `update-${id}` to the function
+              >
+              <img src={edit} className="btnImg" />
+            </button>
+
+                <button className='btn' onClick={handleDelete}><img src={deletebtn}  className='btnImg'/></button>
               </>
             ):null}
         </div>

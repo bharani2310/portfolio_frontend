@@ -25,6 +25,17 @@
     border-radius: 10rem;
 }
 
+.bg2{
+    position: absolute;
+    padding: 5rem;
+    top: 15rem;
+    right: 8rem;
+    z-index: -1;
+    object-fit: cover;
+    height: 30vh;
+    border-radius: 10rem;
+}
+
 .change-button {
     position: absolute;
     bottom: 10px; /* Adjust positioning as per your requirement */
@@ -109,6 +120,11 @@ input[type="file"] {
     }
     .hello{
         font-size: 4.5vw;
+    }
+    .bg2{
+        top: 4rem;
+        right: -1rem;
+        height: 27vh;
     }
 }
 

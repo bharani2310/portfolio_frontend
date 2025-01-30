@@ -17,7 +17,7 @@ const Intro = () => {
   const [profile,setProfile]=useState(null);
   const { isLoggedIn } = useContext(AuthContext);
   const [showEditForm,setShowEditForm]=useState(false)
-
+  const [loading,setLoading]=useState(false)
 
 
   const handleFileChange = async (e) => {
@@ -109,10 +109,9 @@ const Intro = () => {
 
             </div>
         </div> 
-
         {/* {image ? <img className='bg' src={image} alt='' /> : <img className ='bg' src={profile} alt='' />} */}
 
-        {profile ? <img className ='bg' src={profile} alt='' /> : <img src={load} alt='load'/>}
+        {!loading && profile ? <img className ='bg' src={profile} alt='' /> : <img src={load} className='bg2' alt='load'/>}
 
 
 
