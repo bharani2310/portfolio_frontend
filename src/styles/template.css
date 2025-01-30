@@ -1,3 +1,9 @@
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Adds spacing between buttons */
+  }
+  
 .skillBars{
     margin: 1.5rem;
     /* width: 100vw; */
@@ -7,7 +13,7 @@
 
 .skillBar{
     display: flex;
-    justify-content: center; 
+    justify-content: space-around; 
     align-items: center; 
     height: 100%;
     margin: 1rem;
