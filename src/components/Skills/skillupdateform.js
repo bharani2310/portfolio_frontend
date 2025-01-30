@@ -91,7 +91,7 @@ const SkillUpdateForm = ({skill}) => {
 
 
   useEffect(() => {
-    setPic(skill.pic || ''); // Set the initial pic
+    // setPic(skill.pic || ''); // Set the initial pic
 
     flatpickr("#startDate", {
       dateFormat: "F Y",
@@ -110,6 +110,12 @@ const SkillUpdateForm = ({skill}) => {
       },
     });
   }, [formData,check,pic]);
+
+
+  useEffect(() => {
+    setPic(skill.pic || "");  // Set initial pic  
+  }, []);
+  
 
 
     // useEffect(() => {
