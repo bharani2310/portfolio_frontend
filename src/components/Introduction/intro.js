@@ -111,7 +111,13 @@ const Intro = () => {
         </div> 
         {/* {image ? <img className='bg' src={image} alt='' /> : <img className ='bg' src={profile} alt='' />} */}
 
-        {!loading && profile ? <img className ='bg' src={profile} alt='' /> : <img src={load} className='bg2' alt='load'/>}
+        {!loading ? (
+          image ? <img className="bg" src={image} alt="profile" /> 
+                  : <img src={profile ? profile : load} className={profile?"bg":"bg2"} alt="fallback" />
+        ) : (
+          <img src={load} className="bg2" alt="loading" />
+        )}
+
 
 
 
