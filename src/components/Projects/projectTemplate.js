@@ -11,7 +11,10 @@ const ProjectTemplate = () => {
         <p className="card-text">
           Some quick example text to build on the card title and make up the bulk of the card's content.
         </p>
-        <button className="card-btn">Click to View</button>
+        <div className='button-container'>
+        <button className="card-btn">Learn more</button>
+        <button className="card-btn">Live</button>
+        </div>
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ import convertToBase64 from './../Image_conversion/converter.js'
 import {UploadImage,getImage} from './support.js'
 import { AuthContext } from './../Authentication/authContext.js'
 import { scroller } from 'react-scroll';
-import Editintro from './../Introduction/editintro.js'
 
 const Intro = () => {
 
@@ -84,7 +83,7 @@ const Intro = () => {
         <div className='introContent'>
             <span className='hello'>Hello,</span>
             <span className='introText'>I'm <span className='introName'>Bharanidharan</span><br/>Web Developer</span>
-            <p className='introPara'>I'm a skilled web developer with experience in creating <br/>multiple websites.</p>
+            <p className='introPara'>I'm a skilled web developer with experience in creating I'm a <br/> skilled web developer with experience in creating multiple websites.</p>
             {isLoggedIn && 
             <div>
             <label htmlFor="photo" className="custom-file-input">Choose Photo</label>

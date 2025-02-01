@@ -36,15 +36,27 @@
     margin-bottom: 15px;
   }
   
-  .card-btn {
+
+
+.card-btn {
+    flex: 1; 
     background: white;
     border: none;
     padding: 0.75rem 3.5rem;
     border-radius: 0.5rem;
-    margin: .8rem;
-  }
+    margin: 0.8rem;
+    text-align: center;
+}
+
   
   .card-btn:hover {
-    background-color: #0056b3;
+    background-color: #e0e0e0;
+    cursor: pointer;
   }
   
+
+@media screen and (max-width:585px)  {
+  .card:hover {
+      transform: none;
+  }
+}

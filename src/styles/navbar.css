@@ -42,6 +42,10 @@
     cursor: pointer;
 }
 
+.menuBtn:hover {
+    background-color: #e0e0e0;
+  }
+
 .menuImg{
     object-fit: cover;
     height: 1rem;

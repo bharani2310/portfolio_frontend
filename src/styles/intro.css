@@ -8,12 +8,6 @@
 
 }
 
-.editIntro{
-    position: absolute; /* Position the div relative to the viewport */
-  top: 0; /* Align to the top */
-  left: 0; 
-}
-
 .bg{
     position: absolute;
     padding: 5rem;
@@ -87,6 +81,11 @@
     border-radius: 2rem;
 }
 
+.btn:hover{
+    cursor: pointer;
+    background-color: #e0e0e0;
+}
+
 .btnImg{
     object-fit: cover;
     margin: 0 0.25rem;
@@ -106,7 +105,9 @@ input[type="file"] {
     font-size: 1rem;
     font-weight: normal;
   }
-  
+  .custom-file-input:hover {
+    background-color: #e0e0e0;
+  }
 
   
 
