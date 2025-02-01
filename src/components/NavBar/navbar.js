@@ -28,9 +28,9 @@ const Navbar = () => {
         <img src={logo} alt="logo"/>
         <div className='menu'>
             <Link activeClass='active' to='intro' spy={true} smooth={true} offset={-100} duration={500} className='menuListItem'>Home</Link>
-            <Link activeClass='active' to='skills' spy={true} smooth={true} offset={-70} duration={500} className='menuListItem'>About</Link>
-            <Link activeClass='active' to='works' spy={true} smooth={true} offset={-40}  duration={500} className='menuListItem'>Projects</Link>       
-            <Link activeClass='active' to='contactPage' spy={true} smooth={true} offset={-30}  duration={500} className='menuListItem'>Contact Me</Link> 
+            <Link activeClass='active' to='skills' spy={true} smooth={true} offset={-75} duration={500} className='menuListItem'>About</Link>
+            <Link activeClass='active' to='works' spy={true} smooth={true} offset={-70}  duration={500} className='menuListItem'>Projects</Link>       
+            <Link activeClass='active' to='contactPage' spy={true} smooth={true} offset={-60}  duration={500} className='menuListItem'>Contact Me</Link> 
         </div>
 
 
