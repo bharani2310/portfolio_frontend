@@ -1,15 +1,35 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import Portfolio6 from './../assets/portfolio-6.png';
 import './../../styles/ProjectTemplate.css'; 
+import { AuthContext } from '../Authentication/authContext.js'
+import deletebtn from '../assets/bin.png'
+import edit from '../assets/pencil.png'
 
-const ProjectTemplate = () => {
+
+
+const ProjectTemplate = ({id, pic, project, description,url }) => {
+  const { isLoggedIn } = useContext(AuthContext);
+  
   return (
     <div className="card">
-      <img src={Portfolio6} alt="Project Preview" className="card-img" />
+      <div className="image-container">
+        <img src={pic} alt="Project Preview" className="card-img" />
+        {isLoggedIn && (
+          <div className="bottom-buttons">
+            <button className="btn">
+              <img src={edit} className="btnImg" alt="Edit" />
+            </button>
+            <button className="btn">
+              <img src={deletebtn} className="btnImg" alt="Delete" />
+            </button>
+          </div>
+        )}
+      </div>
+
       <div className="card-body">
-        <h3 className="card-title">Card Title</h3>
+        <h3 className="card-title">{project}</h3>
         <p className="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
+          {description}
         </p>
         <div className='button-container'>
         <button className="card-btn">Learn more</button>

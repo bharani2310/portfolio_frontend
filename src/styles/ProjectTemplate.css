@@ -17,6 +17,7 @@
     width: 100%;
     height: 200px;
     display: block;
+    z-index: 1;
   }
   
   .card-body {
@@ -53,6 +54,38 @@
     background-color: #e0e0e0;
     cursor: pointer;
   }
+
+  .image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .card-img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    z-index: 1;
+  }
+  
+  .bottom-buttons {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    z-index: 2;
+    opacity: 0;  /* Hide by default */
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .card:hover .bottom-buttons {
+    opacity: 1;  /* Show on hover */
+  }
+  
+
   
 
 @media screen and (max-width:585px)  {

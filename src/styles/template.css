@@ -22,6 +22,14 @@
     background: rgb(50, 50, 50);
 }
 
+.skillBar button{
+    opacity: 0;
+}
+
+.skillBar:hover button{
+    opacity:1;
+}
+
 .skillBarImg{
     object-fit: cover;
     height: 4rem;
