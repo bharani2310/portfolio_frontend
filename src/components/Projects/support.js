@@ -21,8 +21,25 @@ export async function createProject(data){
 
 export async function getProject(){
     try {
-        console.log("Start")
         const response=await fetch(`${BASE_URL}/getProject/all`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+            }
+        });
+        const result= await response.json();
+        if(!result.success){
+            console.log('Failed to fetch');
+        }
+        return result;
+    } catch (error) {
+        console.log("error :",error)
+    }
+}
+
+export async function getSingleProject(id){
+    try {
+        const response=await fetch(`${BASE_URL}/getProject/${id}`,{
             method:'GET',
             headers:{
                 'content-type':'application/json',

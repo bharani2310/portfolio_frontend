@@ -3,7 +3,7 @@ import './../../styles/project.css'
 import add from '../../components/assets/add.png'
 import ProjectTemplate from './projectTemplate'
 import { AuthContext } from '../Authentication/authContext.js'
-import ProjectCreateForm from './projeCreateForm.js'
+import ProjectCreateForm from './projectCreateForm.js'
 import {Link} from 'react-router-dom';
 import {getProject} from './support.js'
 
@@ -80,6 +80,14 @@ const Project = () => {
             project={project.project}
             description={project.description}
             url={project.url}
+            overview={project.overview}
+            features={project.features}
+            frontend={project.frontend}
+            backend={project.backend}
+            database={project.database}
+            demo={project.demo}
+            challenges={project.challenges}
+            deployment={project.deployment}
           />
         ))}
         </div>

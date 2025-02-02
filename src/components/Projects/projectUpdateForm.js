@@ -13,7 +13,15 @@ const ProjectUpdateForm = ({project,onClose}) => {
     const [formData, setFormData] = useState({
       project: project.project,
       description: project.description,
-      url:project.url
+      url:project.url,
+      overview:project.overview,
+      features:project.features,
+      frontend:project.frontend,
+      backend:project.backend,
+      database:project.database,
+      demo:project.demo,
+      challenges:project.challenges,
+      deployment:project.deployment
     });
   
 
@@ -46,7 +54,15 @@ const ProjectUpdateForm = ({project,onClose}) => {
           pic,
           project: formData.project,
           description: formData.description,
-          url:formData.url
+          url:formData.url,
+          overview:formData.overview,
+          features:formData.features,
+          frontend:formData.frontend,
+          backend:formData.backend,
+          database:formData.database,
+          demo:formData.demo,
+          challenges:formData.challenges,
+          deployment:formData.deployment
         };
         console.log("Update",data)
     
@@ -89,8 +105,20 @@ const ProjectUpdateForm = ({project,onClose}) => {
                     <textarea placeholder='Description' rows={5} name='description' className='msg' value={formData.description || ''} onChange={handleChange} required/>
                     <input type='text' className='name' value={formData.url || ''} placeholder='Project URL (Optional)' name='url' onChange={handleChange} />
 
-                    <button  className='submitBtn' onClick={onClose}>Cancel</button>
-                    <button type='submit' value='send' className='submitBtn' onClick={handleUpdate}>Update</button>
+                    <textarea placeholder='Project Overview' value={formData.overview || ''} rows={5} name='long_description' className='msg' onChange={handleChange} />
+                    <textarea placeholder='Project Features' rows={5} value={formData.features || ''} name='features' className='msg' onChange={handleChange} />
+                    <input type='text' className='name' placeholder='Frontend' value={formData.frontend || ''} name='frontend' onChange={handleChange} />
+                    <input type='text' className='name' placeholder='Backend' value={formData.backend || ''} name='backend' onChange={handleChange} />
+                    <input type='text' className='name' placeholder='Database' value={formData.database || ''} name='database' onChange={handleChange} />
+                    <input type='text' className='name' placeholder='Demo Link' value={formData.demo || ''} name='demo' onChange={handleChange} />
+                    <textarea placeholder='Challenges' rows={5} name='challenges' value={formData.challenges || ''} className='msg' onChange={handleChange} />
+                    <textarea placeholder='Deployment and Hosting' rows={5} name='deployment' value={formData.deployment || ''} className='msg' onChange={handleChange} />
+
+                    <div>
+                      <button  className='submitBtn' onClick={onClose}>Cancel</button>
+                      <button type='submit' value='send' className='submitBtn' onClick={handleUpdate}>Update</button>
+                    </div>
+                    
     
                 </form> 
             </div>

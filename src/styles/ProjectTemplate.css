@@ -42,6 +42,7 @@
 .card-btn {
     flex: 1; 
     background: white;
+    color: black;
     border: none;
     padding: 0.75rem 3.5rem;
     border-radius: 0.5rem;
@@ -87,12 +88,10 @@
 
 
  /* === BLUR EVERYTHING WHEN MODAL OPENS === */
-.page-content.blurred {
-  filter: blur(8px);
-  pointer-events: none; /* Disable interactions */
+ .page-content.blurred {
+  filter: blur(8px); /* Blur content behind modal */
 }
 
-/* === MODAL BACKGROUND (OVERLAY) === */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -104,23 +103,25 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  overflow: auto; /* Allow scrolling if content overflows */
 }
 
 /* === MODAL WINDOW === */
 .modal {
-  background: rgb(30,30,30);
+  background: rgb(30, 30, 30);
   padding: 20px;
   width: auto;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   z-index: 1001;
+  max-height: 90vh; /* Ensure modal doesn't overflow viewport */
+  overflow-y: auto; /* Enable scrolling inside the modal if content is long */
 }
 
 /* === DISABLE SCROLLING WHEN MODAL OPENS === */
 .modal-open {
-  overflow: hidden;
+  overflow: hidden; /* Prevent body from scrolling */
 }
-
   
 
   

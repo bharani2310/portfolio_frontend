@@ -4,9 +4,10 @@ import { AuthContext } from '../Authentication/authContext.js';
 import deletebtn from '../assets/bin.png';
 import edit from '../assets/pencil.png';
 import ProjectUpdateForm from './projectUpdateForm.js';
+import {Link} from 'react-router-dom';
 import { deleteProject } from './support.js';
 
-const ProjectTemplate = ({ id, pic, project, description, url }) => {
+const ProjectTemplate = ({ id, pic, project, description, url ,overview,features,frontend,backend,database,demo,challenges,deployment}) => {
   const { isLoggedIn } = useContext(AuthContext);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
 
@@ -16,6 +17,14 @@ const ProjectTemplate = ({ id, pic, project, description, url }) => {
     project,
     description,
     url,
+    overview,
+    features,
+    frontend,
+    backend,
+    database,
+    demo,
+    challenges,
+    deployment
   };
 
   const handleEdit = () => {
@@ -63,8 +72,8 @@ const ProjectTemplate = ({ id, pic, project, description, url }) => {
               <h3 className="card-title">{project}</h3>
               <p className="card-text">{description}</p>
               <div className="button-container">
-                <button className="card-btn">Learn more</button>
-                <button className="card-btn">Live</button>
+                <Link to={`/project/${id}`} className='card-btn'>Learn more</Link>
+                <Link to={``} className='card-btn'>Live</Link>
               </div>
             </div>
           </div>

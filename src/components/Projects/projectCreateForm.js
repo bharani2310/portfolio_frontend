@@ -15,7 +15,15 @@ const ProjectCreateForm = () => {
         pic: "",
         project: "",
         description: "",
-        url:""
+        url:"",
+        overview:"",
+        features:"",
+        frontend:"",
+        backend:"",
+        database:"",
+        demo:"",
+        challenges:"",
+        deployment:""
       });
       console.log("form",formData)
 
@@ -47,7 +55,15 @@ const ProjectCreateForm = () => {
               pic,
               project: formData.project,
               description: formData.description,
-              url:formData.url
+              url:formData.url,
+              overview:formData.overview,
+              features:formData.features,
+              frontend:formData.frontend,
+              backend:formData.backend,
+              database:formData.database,
+              demo:formData.demo,
+              challenges:formData.challenges,
+              deployment:formData.deployment
             };
             console.log("final Data",data)
             try {
@@ -86,8 +102,19 @@ const ProjectCreateForm = () => {
 
             
                 <input type='text' className='name' placeholder='Project name' name='project' onChange={handleChange} required/>
-                <textarea placeholder='Project Description' rows={5} name='description' className='msg' onChange={handleChange} required/>
+                <textarea placeholder='One Line Description' rows={5} name='description' className='msg' onChange={handleChange} required/>
                 <input type='text' className='name' placeholder='Project Live URL (Optional)' name='url' onChange={handleChange}/>
+                <textarea placeholder='Project Overview' rows={5} name='overview' className='msg' onChange={handleChange} />
+                <textarea placeholder='Project Features' rows={5} name='features' className='msg' onChange={handleChange} />
+                <input type='text' className='name' placeholder='Frontend' name='frontend' onChange={handleChange} />
+                <input type='text' className='name' placeholder='Backend' name='backend' onChange={handleChange} />
+                <input type='text' className='name' placeholder='Database' name='database' onChange={handleChange} />
+
+                <input type='text' className='name' placeholder='Demo Link' name='demo' onChange={handleChange} />
+                <textarea placeholder='Challenges' rows={5} name='challenges' className='msg' onChange={handleChange} />
+                <textarea placeholder='Deployment and Hosting' rows={5} name='deployment' className='msg' onChange={handleChange} />
+
+
 
 
                 <button type='submit' value='send' className='submitBtn' onClick={handleCreate}>Create</button>
