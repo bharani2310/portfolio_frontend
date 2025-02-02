@@ -37,3 +37,35 @@ export async function getProject(){
         console.log("error :",error)
     }
 }
+
+export async function updateProject(id,data){
+    try {
+        const response=await fetch(`${BASE_URL}/updateProject/${id}`,{
+            method:'PUT',
+            headers:{
+                'content-type':'application/json',
+            },
+            body:JSON.stringify(data)
+        });
+        const result= await response.json();
+        return result
+    } catch (error) {
+        console.log("error :",error)
+    }
+}
+
+export async function deleteProject(id){
+    try {
+          const response = await fetch(`${BASE_URL}/deleteProject/${id}`, {
+            method: 'DELETE', 
+            headers: {
+              'Content-Type': 'application/json' 
+            },
+          });
+          const result = await response.json();
+          return result
+          
+        } catch (error) {
+
+        }
+}

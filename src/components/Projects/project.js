@@ -4,6 +4,7 @@ import add from '../../components/assets/add.png'
 import ProjectTemplate from './projectTemplate'
 import { AuthContext } from '../Authentication/authContext.js'
 import ProjectCreateForm from './projeCreateForm.js'
+import {Link} from 'react-router-dom';
 import {getProject} from './support.js'
 
 
@@ -82,6 +83,9 @@ const Project = () => {
           />
         ))}
         </div>
+
+        {/* <Link to = {`project=`}>Book Now</Link> */}
+
 
 
         
