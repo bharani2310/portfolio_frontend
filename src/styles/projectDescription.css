@@ -1,0 +1,51 @@
+.project-Desc {
+    max-width: 60%;
+    margin: 50px auto; /* Centers the div */
+    padding: 20px;
+    border: 2px solid #ccc; /* Adds a border */
+    border-radius: 10px; /* Rounds the corners */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    text-align: left;
+}
+
+.project-img {
+    display: block;
+    margin: 0 auto; /* Centers the image horizontally */
+    max-width: 100%; /* Ensures it doesn't overflow */
+    height: auto; /* Maintains aspect ratio */
+}
+
+.main-heading {
+    text-align: center; /* Centers text */
+    color:yellow;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.project-Desc li {
+    margin-left: 3rem; /* Adds spacing before list items */
+}
+
+.project-Desc p{
+    margin-bottom: 2rem;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+/* .project-Desc h2{
+    color: yellow;
+} */
+
+
+@media screen and (max-width:480px) {
+    .project-Desc{
+        max-width: 80%;
+    }
+}
+
+

@@ -51,6 +51,7 @@ const ProjectCreateForm = () => {
 
          const handleCreate = async (e) => {
             e.preventDefault()
+            const updatedUrl = formData.demo.replace("view?usp=drive_link", "preview");
             const data = {
               pic,
               project: formData.project,
@@ -61,7 +62,7 @@ const ProjectCreateForm = () => {
               frontend:formData.frontend,
               backend:formData.backend,
               database:formData.database,
-              demo:formData.demo,
+              demo:updatedUrl,
               challenges:formData.challenges,
               deployment:formData.deployment
             };
