@@ -41,10 +41,18 @@
     color: yellow;
 } */
 
+.video{
+    width: 50%;
+    height: 200px;
+}
 
 @media screen and (max-width:480px) {
     .project-Desc{
         max-width: 80%;
+    }
+    .video{
+        width: 90%;
+        height: 200px;
     }
 }
 

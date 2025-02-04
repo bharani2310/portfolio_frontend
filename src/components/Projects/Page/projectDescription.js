@@ -47,7 +47,7 @@ const ProjectDescription = () => {
             {data.project && <h1 className='main-heading'>{data.project}</h1>}
 
             <div className="video-container">
-                <iframe src={data.demo} allow="autoplay"  allowFullScreen  title="Google Drive Video"  ></iframe>
+                <iframe src={data.demo} allow="autoplay"  allowFullScreen  title="Google Drive Video" className='video'></iframe>
             </div>
                         
             {data.description && (
