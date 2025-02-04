@@ -1,0 +1,40 @@
+.div_tech{
+    overflow: hidden;
+    max-width: 65rem;
+    margin: 5px auto; /* Centers the div */
+    padding: 5px;
+    border: 2px solid #ccc; /* Adds a border */
+    border-radius: 10px; /* Rounds the corners */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    text-align: left;
+}
+
+.exp {
+    display: flex;
+    align-items: center;  /* Align items vertically */
+    justify-content: space-between;  /* H1 in center, button on the right */
+    padding: 1rem;
+}
+
+.exp h1 {
+    flex-grow: 1; /* Allow H1 to take available space */
+    text-align: center;
+}
+
+.butn {
+    background: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 2rem;
+}
+
+.butn:hover {
+    cursor: pointer;
+    background-color: #e0e0e0;
+}
+
+.btnImg {
+    object-fit: cover;
+    margin: 0 0.25rem;
+    height: 1rem;
+}

@@ -5,6 +5,7 @@ import Intro from "./components/Introduction/intro";
 import Navbar from "./components/NavBar/navbar";
 import Project from "./components/Projects/project";
 import Skills from "./components/Skills/skills";
+import Tech from "./components/Technology/tech.js";
 import { AuthProvider } from "./components/Authentication/authContext.js";
 import ProjectDescription from "./components/Projects/Page/projectDescription.js";
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/portfolio_frontend" element={<>
             <Intro />
             <Skills />
+            <Tech/>
             <Project />
             <Contact />
           </>} />
