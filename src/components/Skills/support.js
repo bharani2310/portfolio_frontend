@@ -41,7 +41,7 @@ export async function getSkill(){
 
 
 export const transformData = (data) => {
-    const { _id,pic, company, role, start, end ,description} = data;
+    const { _id,pic, company, role, start, end ,description,createdAt} = data;
   
     const options = { year: 'numeric', month: 'long' };
     const startDate = new Date(start).toLocaleDateString(undefined, options);
@@ -57,5 +57,6 @@ export const transformData = (data) => {
       role: role.charAt(0).toUpperCase() + role.slice(1), 
       duration: dur,
       description:description,
+      createdAt
     };
   };

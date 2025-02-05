@@ -24,11 +24,15 @@ const Template = ({id, pic, company,role, duration, description }) => {
 
   function calculateDuration(start, end) {
     const startDate = new Date(start);
-    const endDate = new Date();
-
-    if(end==='Present'){
-      endDate = new Date(end);
+    let endDate = new Date();
+    if(end==='Present' || end==='Invalid Date'){
+       endDate = new Date();
     }
+    else{
+       endDate = new Date(end);
+    }
+
+    
 
   
     const totalMonths =

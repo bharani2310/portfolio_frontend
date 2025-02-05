@@ -33,7 +33,8 @@ const Skills = () => {
       const result=await getSkill();
       if(result.success){
         const data = result.data.map(transformData);
-        setSkills(data)
+        const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setSkills(sortedData);
       }
     } catch (error) {
       
