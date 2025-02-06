@@ -5,7 +5,7 @@ import { createTechSkill, updateTech } from './support.js';
 
 const Form = ({ onClose, editingSkill }) => {
     const form = useRef();
-    const categories = ["Frontend", "Backend", "Database", "Deployment", "Tools"];
+    const categories = ["Frontend", "Backend", "Database","Programming Language", "Deployment", "Tools"];
 
     const [formData, setFormData] = useState({
         pic: '',
@@ -51,21 +51,21 @@ const Form = ({ onClose, editingSkill }) => {
     };
 
     return (
-        <div id='contact'>
+        <div id='form' className='form'>
             <form className='contactForm' ref={form} onSubmit={handleSubmit}>
                 <div className="image">
                     <label htmlFor="pic" className="custom-file-input">Choose Photo</label>
                     <input type="file" id="pic" name="pic" onChange={handlePic} />
                     {formData.pic && <img src={formData.pic} alt="Preview" className="img" width={100} height={100} />}
                 </div>
-                <input type='text' className='name' placeholder='Technology Name' name='tech' value={formData.tech} onChange={handleChange} required />
+                <input type='text' style={{width:'80%'}} className='name' placeholder='Technology Name' name='tech' value={formData.tech} onChange={handleChange} required />
                 <select name="category" value={formData.category} onChange={handleChange} required>
                     <option value="" disabled>Select Category</option>
                     {categories.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
                 </select>
-                <div>
-                    <button className='submitBtn' type="button" onClick={onClose}>Close</button>
-                    <button className='submitBtn' type="submit">{editingSkill ? "Update" : "Submit"}</button>
+                <div className='btn-container'>
+                    <button className='butn' type="button" onClick={onClose}>Close</button>
+                    <button className='butn' type="submit">{editingSkill ? "Update" : "Submit"}</button>
                 </div>
             </form>
         </div>

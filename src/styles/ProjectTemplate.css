@@ -130,4 +130,15 @@
   .card:hover {
       transform: none;
   }
+  .modal {
+    width: 10%; /* Adjust width to fit smaller screens */
+    padding: 1px; /* Reduce padding */
+    max-height: 60vh; /* Ensure modal fits within viewport */
+  }
+
+  .modal-overlay {
+    align-items: flex-start; /* Align modal to the top for better visibility */
+    padding-top: 1vh; /* Add some space from the top */
+  }
+
 }

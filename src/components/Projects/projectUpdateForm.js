@@ -1,10 +1,10 @@
 import React,{useRef,useState,useEffect} from 'react'
 import convertToBase64 from '../Image_conversion/converter';
 import { updateProject } from './support';
+import '../../styles/projectUpdateForm.css'
 
 const ProjectUpdateForm = ({project,onClose}) => {
 
-  console.log("pppppp",project)
 
   const form = useRef();
   const [pic,setPic]=useState(null)
@@ -85,7 +85,7 @@ const ProjectUpdateForm = ({project,onClose}) => {
   
   return (
     <section>
-            <div>
+            <div className='update'>
                 <form className='contactForm' ref={form}>
                     <div className="centered-div">
                       <div className="image">
@@ -115,9 +115,9 @@ const ProjectUpdateForm = ({project,onClose}) => {
                     <textarea placeholder='Challenges' rows={5} name='challenges' value={formData.challenges || ''} className='msg' onChange={handleChange} />
                     <textarea placeholder='Deployment and Hosting' rows={5} name='deployment' value={formData.deployment || ''} className='msg' onChange={handleChange} />
 
-                    <div>
-                      <button  className='submitBtn' onClick={onClose}>Cancel</button>
-                      <button type='submit' value='send' className='submitBtn' onClick={handleUpdate}>Update</button>
+                    <div className='btn-container'>
+                      <button  className='butn' onClick={onClose}>Cancel</button>
+                      <button type='submit' value='send' className='butn' onClick={handleUpdate}>Update</button>
                     </div>
                     
     

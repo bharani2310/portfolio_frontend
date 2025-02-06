@@ -1,3 +1,15 @@
+.form{
+  max-width: auto;
+  overflow: hidden;
+  border: 2px solid #ccc; /* Adds a border */
+}
+
+.btn-container{
+  margin: 2.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
 select {
     width: auto;
     padding: 10px;
@@ -7,14 +19,26 @@ select {
     color: white;
     cursor: pointer;
     outline: none;
+    margin-top: 2rem;
   }
-  
-  
-
-  
+   
   select option {
     background-color: rgb(30, 30, 30);
     color: white;
     font-size: 16px;
   }
+
+  @media screen and (max-width: 585px) {
+    .modal {
+      width: 90%; /* Adjust width to fit smaller screens */
+      padding: 1px; /* Reduce padding */
+      max-height: 80vh; /* Ensure modal fits within viewport */
+    }
+  
+    .modal-overlay {
+      align-items: flex-start; /* Align modal to the top for better visibility */
+      padding-top: 15vh; /* Add some space from the top */
+    }
+  }
+  
   

@@ -59,16 +59,28 @@ const Tech = () => {
         Frontend: [],
         Backend: [],
         Database: [],
+        ProgrammingLanguage:[],
         Deployment: [],
         Tools: []
     };
 
+    const categoryMapping = {
+        "Frontend": "Frontend",
+        "Backend": "Backend",
+        "Database": "Database",
+        "Programming Language": "ProgrammingLanguage", // Corrects spacing issue
+        "Deployment": "Deployment",
+        "Tools": "Tools"
+    };
+    
     skills.forEach(skill => {
-        if (categorizedSkills[skill.category]) {
-            categorizedSkills[skill.category].push(skill);
+        const category = categoryMapping[skill.category.trim()]; // Normalize name
+        if (category) {
+            categorizedSkills[category].push(skill);
+        } else {
+            console.warn("Unknown category:", skill.category); // Debugging
         }
     });
-
     return (
         <section id='tech'>
             <div className='div_tech'>
@@ -92,14 +104,14 @@ const Tech = () => {
                 )}
 
                 {Object.entries(categorizedSkills).map(([category, skills]) => (
-                    <div key={category}>
-                        <h2>{category}</h2>
-                        <div className="skill-list">
-                            {skills.length > 0 ? (
-                                skills.map(skill => (
-                                    <div key={skill._id} className="skill-card">
+                    <div key={category} className="category-container">
+                    <h2>{category.replace(/([a-z])([A-Z])/g, '$1 $2')}</h2>
+                    <div className="skill-list">
+                        {skills.length > 0 ? (
+                            skills.map(skill => (
+                                <div key={skill._id} className="skill-card">
+                                    <div className="skill-image-wrapper">
                                         <img src={skill.pic} alt={skill.tech} className="skill-img" />
-                                        <p>{skill.tech}</p>
                                         {isLoggedIn && (
                                             <div className="skill-actions">
                                                 <button onClick={() => handleEdit(skill)} className="edit-btn">Edit</button>
@@ -107,13 +119,15 @@ const Tech = () => {
                                             </div>
                                         )}
                                     </div>
-                                ))
-                            ) : (
-                                <p>No skills added yet.</p>
-                            )}
-                        </div>
+                                    <p>{skill.tech}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No skills added yet.</p>
+                        )}
                     </div>
-                ))}
+                </div>
+            ))}
             </div>
         </section>
     );
