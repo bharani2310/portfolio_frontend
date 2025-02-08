@@ -34,6 +34,8 @@ const Navbar = () => {
     setTimeout(() => {
       if (linkRef.current) {
         linkRef.current.click();
+
+        linkRef.current = null;
       }
     }, 700);
   };
