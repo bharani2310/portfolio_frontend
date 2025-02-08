@@ -54,7 +54,7 @@ const Navbar = () => {
             <Link activeClass='active' to='skills' spy={true} smooth={true} offset={-100} duration={500} className='listItem' onClick={()=>setShowMenu(false)}>About</Link>
             <Link activeClass='active' to='tech' spy={true} smooth={true} offset={-100} duration={500} className='listItem' onClick={()=>setShowMenu(false)}>Skills</Link>
             <Link activeClass='active' to='works' spy={true} smooth={true} offset={-100}  duration={500} className='listItem' onClick={()=>setShowMenu(false)}>Projects</Link>       
-            <Link activeClass='active' to='contactPage' spy={true} smooth={true} offset={-50}  duration={500} className='listItem' onClick={()=>setShowMenu(false)}>Contact Me</Link> 
+            <Link activeClass='active' to='contactPage' spy={true} smooth={true}  duration={500} className='listItem' onClick={()=>setShowMenu(false)}>Contact Me</Link> 
             <Link className='listItem' onClick={() => {handleNavigate();setShowMenu(false);}}>Resume</Link> 
             {isLoggedIn && (
                 <Link className='listItem' onClick={handleLogout}>Logout</Link>
