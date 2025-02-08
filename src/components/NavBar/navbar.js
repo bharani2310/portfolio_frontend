@@ -1,4 +1,4 @@
-import React, { useState,useContext,useEffect } from 'react'
+import React, { useState,useContext,useEffect ,useRef} from 'react'
 import './../../styles/navbar.css';
 import logo from './../assets/logo.png'
 import {Link,scroller} from 'react-scroll'
@@ -23,6 +23,21 @@ const Navbar = () => {
 
   console.log("nav page :",isLoggedIn)
 
+  const linkRef = useRef(null);
+
+  const handleClickTwice = (e, section) => {
+
+    // Store the clicked link
+    linkRef.current = e.target;
+
+    // Simulate a second click after 700ms
+    setTimeout(() => {
+      if (linkRef.current) {
+        linkRef.current.click();
+      }
+    }, 700);
+  };
+
   return (
      <nav className='navbar'>
         <img src={logo} alt="logo"/>
@@ -30,8 +45,8 @@ const Navbar = () => {
             <Link activeClass='active' to='intro' spy={true} smooth={true}  offset={-110} duration={500} className='menuListItem'>Home</Link>
             <Link activeClass='active' to='skills-section' spy={true}  smooth={true} offset={-75} duration={500} className='menuListItem'>About</Link>
             <Link activeClass='active' to='tech-section' spy={true}   smooth={true} offset={-80} duration={500} className='menuListItem'>Skills</Link>
-            <Link activeClass='active' to='works' spy={true} smooth={true} offset={-70}  duration={500} className='menuListItem'>Projects</Link>       
-            <Link activeClass='active' to='contactPage-section' spy={true}  smooth={true} offset={20}  duration={500} className='menuListItem'>Contact Me</Link> 
+            <Link activeClass='active' to='works' spy={true} smooth={true} offset={-55}  duration={500} className='menuListItem'>Projects</Link>       
+            <Link activeClass='active' to='contactPage-section' spy={true}  smooth={true} offset={-20} onClick={handleClickTwice} duration={500} className='menuListItem'>Contact Me</Link> 
         </div>
 
 
