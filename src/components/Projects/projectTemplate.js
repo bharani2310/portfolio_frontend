@@ -38,15 +38,19 @@ const ProjectTemplate = ({ id, pic, project, description, url ,overview,features
   };
 
   const handleDelete = async() => {
-    try {
-      const result= await deleteProject(id);
-      if(result.success){
-        window.alert("Deleted Successfully...")
-        window.location.reload();
+    const confirmDelete = window.confirm("Are you sure you want to delete this Project?");
+    if(confirmDelete){
+      try {
+        const result= await deleteProject(id);
+        if(result.success){
+          window.alert("Deleted Successfully...")
+          window.location.reload();
+        }
+      } catch (error) {
+        window.alert("Oops try again...")
       }
-    } catch (error) {
-      window.alert("Oops try again...")
     }
+    
   }
 
   return (

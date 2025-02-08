@@ -7,6 +7,7 @@ import InstagramIcon from './../assets/instagram.png'
 import emailjs from '@emailjs/browser';
 import { AuthContext } from './../Authentication/authContext.js'
 import { scroller,Element } from 'react-scroll';
+import {verify} from './support.js'
 
 
 const Contact = () => {
@@ -16,15 +17,22 @@ const Contact = () => {
   const { handleLogin} = useContext(AuthContext);
   
 
-  const sendEmail = (e) => {
+  const sendEmail = async(e) => {
     e.preventDefault();
 
     const role = form.current['your_name']?.value || ''; 
     const email = form.current['your_email']?.value || '';
     const password = form.current['message']?.value || '';
-    console.log("role",role)
 
-    if (role==='Admin' && email==='bharanidharan0909@gmail.com' && password==='7g&ZT}5q9843233119') {
+    const credential={
+      role:role,
+      email:email,
+      password:password,
+    }
+
+    const result = await verify(credential)
+
+    if (result.success) {
       alert("Welcome Admin")
       handleLogin(role);
       scroller.scrollTo('intro', {
@@ -35,6 +43,7 @@ const Contact = () => {
       
       window.location.reload();
     } 
+
     else {
       emailjs
       .sendForm('service_if1vqxc', 'template_0thnvnn', form.current, {

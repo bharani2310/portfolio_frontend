@@ -21,7 +21,6 @@ const Navbar = () => {
   //   scroller.update();  // Force scroll detection on mount
   // }, []);
 
-  console.log("nav page :",isLoggedIn)
 
   const linkRef = useRef(null);
 

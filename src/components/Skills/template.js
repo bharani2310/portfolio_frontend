@@ -71,23 +71,27 @@ const Template = ({id, pic, company,role, duration, description }) => {
   }
 
   const handleDelete = async() => {
-    try {
-      const response = await fetch(`${BASE_URL}/deleteSkill/${id}`, {
-        method: 'DELETE', 
-        headers: {
-          'Content-Type': 'application/json' 
-        },
-      });
-      const result = await response.json();
-      if (!response.ok) {
-        return alert(result.message);
+    const confirmDelete = window.confirm("Are you sure you want to delete this?");
+
+    if(confirmDelete){
+      try {
+        const response = await fetch(`${BASE_URL}/deleteSkill/${id}`, {
+          method: 'DELETE', 
+          headers: {
+            'Content-Type': 'application/json' 
+          },
+        });
+        const result = await response.json();
+        if (!response.ok) {
+          return alert(result.message);
+        }
+        window.alert("Deleted Successfully...")
+        window.location.reload();
+        
+      } catch (error) {
+        console.error('Error Deleting tour:', error);
+        window.alert('Oops. Try Again');
       }
-      window.alert("Deleted Successfully...")
-      window.location.reload();
-      
-    } catch (error) {
-      console.error('Error Deleting tour:', error);
-      window.alert('Oops. Try Again');
     }
   }
 
