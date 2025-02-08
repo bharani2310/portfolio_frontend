@@ -55,7 +55,7 @@ const Contact = () => {
   };
 
   return (
-    <Element name='contactPage'>
+    <Element name='contactPage-section'>
     <section id='contactPage'>
         <div id='contact'>
             <h1 className='contactPageTitle'>Contact Me</h1>
