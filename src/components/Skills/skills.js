@@ -5,6 +5,7 @@ import add from './../../components/assets/add.png'
 import { AuthContext } from './../Authentication/authContext.js'
 import SkillCreateForm from './skillcreateform.js';
 import { getSkill,transformData } from './support.js';
+import { Element } from 'react-scroll';
 
 const Skills = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -48,6 +49,7 @@ const Skills = () => {
     },[]);
 
   return (
+    <Element name='skills-section'>
     <section id='skills'>
       <span className='skillTitle'>About</span>
       <span className='skillDesc'>
@@ -84,6 +86,7 @@ const Skills = () => {
         ))}
       </div>
     </section>
+  </Element>
   );
 };
 

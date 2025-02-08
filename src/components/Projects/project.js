@@ -6,6 +6,7 @@ import { AuthContext } from '../Authentication/authContext.js'
 import ProjectCreateForm from './projectCreateForm.js'
 import {Link} from 'react-router-dom';
 import {getProject} from './support.js'
+import { Element } from 'react-scroll'
 
 
 
@@ -48,6 +49,7 @@ const Project = () => {
     },[]);
 
   return (
+    <Element name='works'>
     <section id='works'>
         <h2 className='worksTitle'>My Projects</h2>
         <span className='workDesc'>I'm a skilled and professionate web developer with experience in creating visually appealing websites.I'm a skilled and professionate web developer with experience in creating visually appealing websites.I'm a skilled and professionate web developer with experience in creating visually appealing websites.</span>
@@ -92,12 +94,12 @@ const Project = () => {
         ))}
         </div>
 
-        {/* <Link to = {`project=`}>Book Now</Link> */}
 
 
 
         
     </section>
+  </Element>
   )
 }
 

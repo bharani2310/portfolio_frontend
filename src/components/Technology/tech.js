@@ -4,6 +4,7 @@ import { AuthContext } from './../Authentication/authContext.js';
 import add from '../assets/add.png';
 import Form from './Form.js';
 import { getTech, deleteTech } from './support.js';
+import { Element } from 'react-scroll';
 
 const Tech = () => {
     const { isLoggedIn } = useContext(AuthContext);
@@ -82,6 +83,7 @@ const Tech = () => {
         }
     });
     return (
+        <Element name='tech-section'>
         <section id='tech'>
             <div className='div_tech'>
                 <div className='exp'>
@@ -130,6 +132,7 @@ const Tech = () => {
             ))}
             </div>
         </section>
+    </Element>
     );
 };
 

@@ -6,7 +6,7 @@ import YouTubeIcon from './../assets/youtube.png'
 import InstagramIcon from './../assets/instagram.png'
 import emailjs from '@emailjs/browser';
 import { AuthContext } from './../Authentication/authContext.js'
-import { scroller } from 'react-scroll';
+import { scroller,Element } from 'react-scroll';
 
 
 const Contact = () => {
@@ -55,6 +55,7 @@ const Contact = () => {
   };
 
   return (
+    <Element name='contactPage'>
     <section id='contactPage'>
         <div id='contact'>
             <h1 className='contactPageTitle'>Contact Me</h1>
@@ -74,6 +75,7 @@ const Contact = () => {
             </form> 
         </div>
     </section>
+    </Element>
   )
 }
 

@@ -7,7 +7,7 @@ import { Link } from 'react-scroll'
 import convertToBase64 from './../Image_conversion/converter.js'
 import {UploadImage,getImage} from './support.js'
 import { AuthContext } from './../Authentication/authContext.js'
-import { scroller } from 'react-scroll';
+import { scroller,Element } from 'react-scroll';
 
 const Intro = () => {
 
@@ -79,6 +79,7 @@ const Intro = () => {
  
 
   return (
+    <Element name='intro'>
     <section id="intro">
         <div className='introContent'>
             <span className='hello'>Hello,</span>
@@ -122,6 +123,7 @@ const Intro = () => {
 
         
     </section>
+  </Element>
   )
 }
 
