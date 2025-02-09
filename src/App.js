@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Contact from "./components/Contact/contact";
 import Footer from "./components/Footer/footer";
 import Intro from "./components/Introduction/intro";
@@ -15,7 +16,7 @@ function App() {
       <Router>
       <Navbar /> {/* Keep Navbar outside Routes to display on all pages */}
         <Routes>
-          <Route path="/portfolio_frontend" element={<>
+          <Route path="/" element={<>
             <Intro />
             <Skills />
             <Tech/>
