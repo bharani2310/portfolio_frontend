@@ -65,3 +65,10 @@
     width: 3rem;
     margin: 0 0.75rem;
 }
+
+@media screen and (min-height:990px){
+    #contactPage {
+        min-height: auto;
+    }
+    
+}

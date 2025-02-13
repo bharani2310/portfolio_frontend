@@ -42,3 +42,15 @@
         height: 48vw;
     }
 }
+
+@media screen and (min-height:990px){
+    #works{
+        min-height: auto;
+        width: 80%;
+        padding: 2rem;
+    }
+    .worksTitle{
+        width: 20rem;
+    }
+    
+}

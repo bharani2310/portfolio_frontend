@@ -140,3 +140,29 @@ input[type="file"] {
         height: 27vh;
     }
 }
+
+@media screen and (min-height:990px){
+    #intro{
+        width: 100vw;
+        height: 70vh;
+        max-width: 90%;
+    }
+    .bg{
+        height: 35vh;
+        right: -2vh;
+    }
+    .bg2{
+        height: 15vh;
+        right: 2vh;
+    }
+    .introContent{
+        font-size: 9vw;
+    }
+   .hello{
+        font-size: 4vw;
+    } 
+    .introPara{ 
+        padding: 10px;
+        font-size: 2.5vw;
+    } 
+}
