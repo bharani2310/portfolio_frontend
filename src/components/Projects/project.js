@@ -52,7 +52,11 @@ const Project = () => {
     <Element name='works'>
     <section id='works'>
         <h2 className='worksTitle'>My Projects</h2>
-        <span className='workDesc'>I'm a skilled and professionate web developer with experience in creating visually appealing websites.I'm a skilled and professionate web developer with experience in creating visually appealing websites.I'm a skilled and professionate web developer with experience in creating visually appealing websites.</span>
+        <span className='workDesc'>I enjoy building user-friendly, interactive, and functional applications using technologies like Java and 
+          MERN Stack. My projects often involve real-world problem-solving, API integrations, database management,and responsive UI design.
+          Each project has helped me refine my coding, debugging, and collaboration skills, preparing me to work effectively in a professional 
+          development environment. I am always looking to improve my projects by incorporating best coding practices, performance optimization, 
+          and modern frameworks.</span>
         {isLoggedIn?(
                 <>
                   <div className='create'>

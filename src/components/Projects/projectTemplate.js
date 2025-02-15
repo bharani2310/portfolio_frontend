@@ -6,10 +6,12 @@ import edit from '../assets/pencil.png';
 import ProjectUpdateForm from './projectUpdateForm.js';
 import {Link} from 'react-router-dom';
 import { deleteProject } from './support.js';
+import { toast } from 'react-toastify';
 
 const ProjectTemplate = ({ id, pic, project, description, url ,overview,features,frontend,backend,database,demo,challenges,deployment}) => {
   const { isLoggedIn } = useContext(AuthContext);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [spinner,setSpinner]=useState(false)
 
   const data = {
     id,
@@ -39,17 +41,21 @@ const ProjectTemplate = ({ id, pic, project, description, url ,overview,features
 
   const handleDelete = async() => {
     const confirmDelete = window.confirm("Are you sure you want to delete this Project?");
+    setSpinner(true)
     if(confirmDelete){
       try {
         const result= await deleteProject(id);
         if(result.success){
-          window.alert("Deleted Successfully...")
-          window.location.reload();
+          toast.success("Deleted Successfully...")
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         }
       } catch (error) {
-        window.alert("Oops try again...")
+        toast.error("Oops try again...")
       }
     }
+    setSpinner(false)
     
   }
 
@@ -57,6 +63,11 @@ const ProjectTemplate = ({ id, pic, project, description, url ,overview,features
     <>
       <div className={`page-content ${showUpdateForm ? 'blurred' : ''}`}>
         <section>
+        {spinner && (
+                  <div className="loader-overlay">
+                    <span className="loader"></span>
+                  </div>
+          )}
           <div className="card">
             <div className="image-container">
               <img src={pic} alt="Project Preview" className="card-img" />

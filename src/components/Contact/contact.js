@@ -8,6 +8,7 @@ import emailjs from '@emailjs/browser';
 import { AuthContext } from './../Authentication/authContext.js'
 import { scroller,Element } from 'react-scroll';
 import {verify} from './support.js'
+import { toast } from 'react-toastify'
 
 
 const Contact = () => {
@@ -33,7 +34,7 @@ const Contact = () => {
     const result = await verify(credential)
 
     if (result.success) {
-      alert("Welcome Admin")
+      toast.success("Welcome Admin")
       handleLogin(role);
       scroller.scrollTo('intro', {
         duration: 500,
@@ -41,7 +42,9 @@ const Contact = () => {
         offset: -50, 
       });
       
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } 
 
     else {

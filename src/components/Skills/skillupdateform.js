@@ -4,6 +4,7 @@ import 'flatpickr/dist/themes/material_blue.css'
 import convertToBase64 from './../Image_conversion/converter.js'
 import {BASE_URL} from '../utils/config.js'
 import './../../styles/skillCreateForm.css'
+import { toast } from 'react-toastify';
 
 const SkillUpdateForm = ({skill}) => {
 
@@ -11,6 +12,7 @@ const SkillUpdateForm = ({skill}) => {
   const form = useRef();
   const [pic,setPic]=useState(null)
   const [check,setCheck]=useState(false)
+  const[spinner,setSpinner]=useState(false)
   const endDateRef = useRef(null);
   const id=skill.id
 
@@ -22,7 +24,7 @@ const SkillUpdateForm = ({skill}) => {
   const handlePic = async(e)=>{
     const file = e.target.files[0];
     if (!file) {
-      alert("Please select a file.");
+      toast.error("Please select a file.");
       return;
     }
 
@@ -46,7 +48,7 @@ const SkillUpdateForm = ({skill}) => {
 
   const handleUpdate = async (e) => {
     e.preventDefault()
-
+    setSpinner(true)
     const data = {
       pic,
       company: formData.company,
@@ -67,17 +69,19 @@ const SkillUpdateForm = ({skill}) => {
         });
         const result= await response.json();
         if(result.success){
-          alert('Updated Successfully')
-          window.location.reload()
+          toast.success('Updated Successfully')
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         }
         else{
-          alert('Oops...Try Again')
+          toast.error('Oops...Try Again')
         }
     } catch (error) {
         console.log("error :",error)
     }
 
-
+    setSpinner(false)
   }
 
   const [formData, setFormData] = useState({
@@ -134,6 +138,12 @@ const SkillUpdateForm = ({skill}) => {
   return (
      <section id='contactPage'>
             <div id='contact'>
+                {spinner && (
+                  <div className="loader-overlay">
+                    <span className="loader"></span>
+                  </div>
+                )}
+
                 <form className='contactForm' ref={form}>
                     <div className="centered-div">
                       <div className="image">

@@ -8,6 +8,8 @@ import convertToBase64 from './../Image_conversion/converter.js'
 import {UploadImage,getImage} from './support.js'
 import { AuthContext } from './../Authentication/authContext.js'
 import { scroller,Element } from 'react-scroll';
+import { ToastContainer, toast } from 'react-toastify';
+import '../../styles/loader.css'
 
 const Intro = () => {
 
@@ -17,6 +19,7 @@ const Intro = () => {
   const { isLoggedIn } = useContext(AuthContext);
   const [showEditForm,setShowEditForm]=useState(false)
   const [loading,setLoading]=useState(false)
+  const [spinner,setSpinner]=useState(false)
 
 
   const handleFileChange = async (e) => {
@@ -54,12 +57,17 @@ const Intro = () => {
   
   
   const handleUpload = () => {
+    setSpinner(true)
     UploadImage(file, () => {
-      console.log("Image uploaded! Refreshing data...");
-      window.location.reload();
+      toast.success("Image Uploaded Successfully");
+  
+      setTimeout(() => {
+        window.location.reload();
+        setSpinner(false)
+      }, 1000); 
     });
-    
   };
+  
 
   const move =()=>{
     scroller.scrollTo('contactPage', {
@@ -81,10 +89,13 @@ const Intro = () => {
   return (
     <Element name='intro'>
     <section id="intro">
+      <ToastContainer/>
         <div className='introContent'>
             <span className='hello'>Hello,</span>
-            <span className='introText'>I'm <span className='introName'>Bharanidharan</span><br/>Web Developer</span>
-            <p className='introPara'>I'm a skilled web developer with experience in creating I'm a <br/> skilled web developer with experience in creating multiple websites.</p>
+            <span className='introText'>I'm <span className='introName'>Bharanidharan</span><br/>Full Stack Developer</span>
+            <div className='para-div'>
+              <p className='introPara'>I am a passionate and detail-oriented Software Developer with a strong foundation in Java, Web Development, and Database Management.</p>
+            </div>
             {isLoggedIn && 
             <div>
             <label htmlFor="photo" className="custom-file-input">Choose Photo</label>
@@ -97,15 +108,24 @@ const Intro = () => {
           </div>}
             <div>
             {isLoggedIn ? (
-                image ? (
-                  <button className='btn' onClick={handleUpload}>{btnName}</button>
-                ) : null
-              ) : (
-                <button className='btn' onClick={move}>
-                  <img src={btnImg} alt='hire me' className='btnImg' />
-                  {btnName}
-                </button>
+            image ? (
+              <>
+                <button className="btn" onClick={handleUpload}>{btnName}</button>
+                {spinner && (
+                <div className="loader-overlay">
+                  <span className="loader"></span>
+                </div>
               )}
+
+              </>
+            ) : null
+          ) : (
+            <button className="btn" onClick={move}>
+              <img src={btnImg} alt="hire me" className="btnImg" />
+              {btnName}
+            </button>
+          )}
+
 
             </div>
         </div> 

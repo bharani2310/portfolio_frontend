@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom';
 import { getSingleProject } from '../support';
 import './../../../styles/projectDescription.css'
-import ReactPlayer from "react-player";
+
 
 const ProjectDescription = () => {
 
@@ -22,8 +22,10 @@ const ProjectDescription = () => {
         challenges: "",
         deployment: ""
       });
+      const [spinner,setSpinner]=useState(false)
 
     const handleGet = async() => {
+        setSpinner(true)
         try {
           const result = await getSingleProject(id);
           if(result.success){
@@ -33,8 +35,8 @@ const ProjectDescription = () => {
         } catch (error) {
     
         }
+        setSpinner(false)
       }
-      console.log("demo",data.demo)
 
     useEffect(() => {
         handleGet();  
@@ -42,6 +44,11 @@ const ProjectDescription = () => {
 
     return (
         <div className='project-Desc'>
+            {spinner && (
+                  <div className="loader-overlay">
+                    <span className="loader"></span>
+                  </div>
+                )}
             {data.pic && <img className='project-img' src={data.pic}/>}
 
             {data.project && <h1 className='main-heading'>{data.project}</h1>}

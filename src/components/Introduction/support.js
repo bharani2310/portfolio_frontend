@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { BASE_URL } from './../utils/config';
 
 export async function getImage(name){
@@ -21,7 +22,7 @@ export async function getImage(name){
 export async function UploadImage(file, callback) {
 
   if (!file) {
-    return alert("Please select an image to upload.");
+    return toast.error("Please select an image to upload.");
   }
 
   try {
@@ -44,12 +45,11 @@ export async function UploadImage(file, callback) {
 
       const result = await response.json();
       if (!response.ok) {
-        return alert(result.message || 'Error uploading image');
+        return toast.error(result.message || 'Error uploading image');
       }
 
-      alert("Image Uploaded Successfully");
+
       if (callback) callback(); // Optional callback for success actions
-      console.log('Uploaded Image:', result);
       return result;
     };
 

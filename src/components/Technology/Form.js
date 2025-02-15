@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import convertToBase64 from '../Image_conversion/converter.js';
 import '../../styles/form.css';
 import { createTechSkill, updateTech } from './support.js';
+import { toast } from 'react-toastify';
+
 
 const Form = ({ onClose, editingSkill }) => {
     const form = useRef();
@@ -12,6 +14,7 @@ const Form = ({ onClose, editingSkill }) => {
         tech: '',
         category: '',
     });
+    const [spinner,setSpinner]=useState(false)
 
     useEffect(() => {
         if (editingSkill) {
@@ -37,6 +40,7 @@ const Form = ({ onClose, editingSkill }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSpinner(true)
         try {
             if (editingSkill) {
                 await updateTech(editingSkill._id, formData);
@@ -44,14 +48,22 @@ const Form = ({ onClose, editingSkill }) => {
                 await createTechSkill(formData);
             }
             onClose();
-            window.location.reload()
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         } catch (error) {
             console.error("Error submitting skill:", error);
         }
+        setSpinner(true)
     };
 
     return (
         <div id='form' className='form'>
+            {spinner && (
+                  <div className="loader-overlay">
+                    <span className="loader"></span>
+                  </div>
+            )}
             <form className='contactForm' ref={form} onSubmit={handleSubmit}>
                 <div className="image">
                     <label htmlFor="pic" className="custom-file-input">Choose Photo</label>

@@ -5,12 +5,14 @@ import add from '../assets/add.png';
 import Form from './Form.js';
 import { getTech, deleteTech } from './support.js';
 import { Element } from 'react-scroll';
+import { toast } from 'react-toastify';
 
 const Tech = () => {
     const { isLoggedIn } = useContext(AuthContext);
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [skills, setSkills] = useState([]);
     const [editingSkill, setEditingSkill] = useState(null);
+    const [spinner,setSpinner]=useState(false)
 
     const handleEdit = (skill) => {
         setEditingSkill(skill); // Set the skill to be edited
@@ -31,6 +33,7 @@ const Tech = () => {
     };
 
     const fetchSkills = async () => {
+        setSpinner(true)
         try {
             const result = await getTech();
             if (result.success) {
@@ -39,6 +42,7 @@ const Tech = () => {
         } catch (error) {
             console.error("Error fetching skills:", error);
         }
+        setSpinner(false)
     };
 
     useEffect(() => {
@@ -47,13 +51,17 @@ const Tech = () => {
 
     const handleDelete = async (id) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this skill?");
+        setSpinner(true)
         if (confirmDelete) {
             const result = await deleteTech(id);
             if (result.success) {
-                window.alert("Deleted Successfully...")
-                window.location.reload()
+                toast.success("Deleted Successfully...")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             }
         }
+        setSpinner(false)
     };
 
     const categorizedSkills = {
@@ -84,6 +92,11 @@ const Tech = () => {
     });
     return (
         <Element name='tech-section'>
+                {spinner && (
+                  <div className="loader-overlay">
+                    <span className="loader"></span>
+                  </div>
+                )}
         <section id='tech'>
             <div className='div_tech'>
                 <div className='exp'>

@@ -2,6 +2,7 @@ import React,{useState,useRef} from 'react'
 import convertToBase64 from '../Image_conversion/converter.js'
 import {createProject} from './support.js'
 import '../../styles/projectCreateForm.css'
+import { toast } from 'react-toastify'
 
 
 
@@ -9,6 +10,7 @@ const ProjectCreateForm = () => {
     const form = useRef();
     
     const [pic,setPic]=useState('')
+    const [spinner,setSpinner]=useState(false)
     
 
     const [formData, setFormData] = useState({
@@ -35,7 +37,7 @@ const ProjectCreateForm = () => {
       const handlePic = async(e)=>{
           const file = e.target.files[0];
           if (!file) {
-            alert("Please select a file.");
+            toast.error("Please select a file.");
             return;
           }
       
@@ -51,6 +53,7 @@ const ProjectCreateForm = () => {
 
          const handleCreate = async (e) => {
             e.preventDefault()
+            setSpinner(true)
             const updatedUrl = formData.demo.replace("view?usp=drive_link", "preview");
             const data = {
               pic,
@@ -70,20 +73,27 @@ const ProjectCreateForm = () => {
             try {
                   const result=await createProject(data);
                   if(result.success){
-                    window.alert("Created Successfully...")
-                    window.location.reload();
+                    toast.success("Created Successfully...")
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 1000);
                   }
                 } catch (error) {
-                  window.alert("Oops try again...")
+                  toast.error("Oops try again...")
                 }
             
-        
+           setSpinner(false)
         
           }
       
 
   return (
             <section>
+              {spinner && (
+                  <div className="loader-overlay">
+                    <span className="loader"></span>
+                  </div>
+                )}
                 <form className='contactForm' ref={form}>
                 
 

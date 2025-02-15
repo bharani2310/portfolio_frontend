@@ -5,12 +5,14 @@ import deletebtn from './../../components/assets/bin.png'
 import edit from './../../components/assets/pencil.png'
 import SkillUpdateForm from './skillupdateform.js';
 import { BASE_URL } from '../utils/config.js';
+import { toast } from 'react-toastify';
 
 const Template = ({id, pic, company,role, duration, description }) => {
 
   const updatedString = duration.replace('Invalid Date', 'Present');
   const { isLoggedIn } = useContext(AuthContext);
   const [showUpdateForm,setShowUpdateForm]=useState(false)
+  const [spinner,setSpinner]=useState(false)
   const str = duration.split('-').map((item) => item.trim());
   const start=str[0]
   const end=str[1]
@@ -72,7 +74,7 @@ const Template = ({id, pic, company,role, duration, description }) => {
 
   const handleDelete = async() => {
     const confirmDelete = window.confirm("Are you sure you want to delete this?");
-
+    setSpinner(true)
     if(confirmDelete){
       try {
         const response = await fetch(`${BASE_URL}/deleteSkill/${id}`, {
@@ -83,21 +85,28 @@ const Template = ({id, pic, company,role, duration, description }) => {
         });
         const result = await response.json();
         if (!response.ok) {
-          return alert(result.message);
+          return toast.error(result.message);
         }
-        window.alert("Deleted Successfully...")
-        window.location.reload();
+        toast.success("Deleted Successfully...")
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         
       } catch (error) {
-        console.error('Error Deleting tour:', error);
-        window.alert('Oops. Try Again');
+        toast.error('Oops. Try Again');
       }
     }
+    setSpinner(false)
   }
 
   return (
     <section>
         <div className='skillBar'>
+              {spinner && (
+                  <div className="loader-overlay">
+                    <span className="loader"></span>
+                  </div>
+                )}
           <img className='skillBarImg' src={pic} alt={company} />
           <div className='skillBarText'>
             <h2><span style={{color:'yellow'}}>{company}</span> - {role}</h2>

@@ -1,4 +1,5 @@
 import { BASE_URL } from "../utils/config";
+import { toast } from "react-toastify";
 
 export async function createProject(data){
     try {
@@ -11,11 +12,11 @@ export async function createProject(data){
         });
         const result= await response.json();
         if(!result.success){
-            console.log("Failed to fetch")
+            toast.error("Failed to create.Missing some fields")
         }
         return result;
     } catch (error) {
-        console.log("error :",error)
+        toast.error(error)
     }
 }
 

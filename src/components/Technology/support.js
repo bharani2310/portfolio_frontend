@@ -1,4 +1,6 @@
+
 import { BASE_URL } from "../utils/config";
+import { toast } from "react-toastify";
 
 export async function createTechSkill(data){
     try {
@@ -11,10 +13,10 @@ export async function createTechSkill(data){
         });
         const result = await response.json();
         if(!result.success){
-            window.alert("Failed to Create")
+            toast.error("Failed to Create")
         }
         else{
-            window.alert("Created Successfully")
+           toast.success("Created Successfully")
         }
         return result;
     } catch (error) {
@@ -51,10 +53,10 @@ export async function updateTech(id,data){
         });
         const result= await response.json();
         if(!result.success){
-            window.alert("Failed to Update")
+            toast.error("Failed to Update")
         }
         else{
-            window.alert("Updated Successfully")
+            toast.success("Updated Successfully")
         }
         return result
     } catch (error) {

@@ -2,13 +2,14 @@ import React,{useRef,useState,useEffect} from 'react'
 import convertToBase64 from '../Image_conversion/converter';
 import { updateProject } from './support';
 import '../../styles/projectUpdateForm.css'
+import { toast } from 'react-toastify';
 
 const ProjectUpdateForm = ({project,onClose}) => {
 
 
   const form = useRef();
   const [pic,setPic]=useState(null)
-  
+  const [spinner,setSpinner]=useState(false)
 
     const [formData, setFormData] = useState({
       project: project.project,
@@ -49,6 +50,7 @@ const ProjectUpdateForm = ({project,onClose}) => {
 
     const handleUpdate = async (e) => {
         e.preventDefault()
+        setSpinner(true)
         const updatedUrl = formData.demo.replace("view?usp=drive_link", "preview");
 
         const data = {
@@ -70,15 +72,16 @@ const ProjectUpdateForm = ({project,onClose}) => {
       try {
             const result=await updateProject(project.id,data);
             if(result.success){
-              alert('Updated Successfully')
-              window.location.reload()
+              toast.success('Updated Successfully')
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
             }
             } catch (error) {
-                window.alert("Oops try again...")
+                toast.error("Oops try again...")
           }  
-          window.location.reload();
+      setSpinner(false)
       }
-
       useEffect(() => {
           setPic(project.pic || "");  // Set initial pic  
         }, []);
@@ -86,6 +89,11 @@ const ProjectUpdateForm = ({project,onClose}) => {
   return (
     <section>
             <div className='update'>
+            {spinner && (
+                  <div className="loader-overlay">
+                    <span className="loader"></span>
+                  </div>
+                )}
                 <form className='contactForm' ref={form}>
                     <div className="centered-div">
                       <div className="image">

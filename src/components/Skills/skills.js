@@ -12,6 +12,7 @@ const Skills = () => {
   const [showCreateForm,setShowCreateForm]=useState(false);
   const [skills, setSkills] = useState([])
   const [scroll,setScroll]=useState(true)
+  const [spinner,setSpinner]=useState(false)
 
   const handleCreateClick = () => {
     setShowCreateForm(!showCreateForm)
@@ -30,6 +31,7 @@ const Skills = () => {
   }
 
   const handleSkill = async() => {
+    setSpinner(true)
     try {
       const result=await getSkill();
       if(result.success){
@@ -40,6 +42,7 @@ const Skills = () => {
     } catch (error) {
       
     }
+    setSpinner(false)
   }
 
 
@@ -51,9 +54,18 @@ const Skills = () => {
   return (
     <Element name='skills-section'>
     <section id='skills'>
+      {spinner && (
+          <div className="loader-overlay">
+            <span className="loader"></span>
+          </div>
+      )}
       <span className='skillTitle'>About</span>
       <span className='skillDesc'>
-        I'm a skilled and passionate web developer with experience in creating visually appealing websites.
+          Currently holding a Bachelor degree in Computer Science and Engineering and my expertise 
+          includes Java, python and other modern web technologies.Beyond my technical skills, I am
+          a proactive learner, having completed certifications in Java (NPTEL - IIT Kharagpur) and 
+          SQL (HackerRank).I am eager to contribute my skills and problem-solving abilities to 
+          innovative projects, collaborating with teams to deliver impactful software solutions.
       </span>
       {isLoggedIn?(
                 <>
