@@ -1,9 +1,10 @@
 import React, { useRef ,useContext} from 'react'
 import './../../styles/contact.css'
-import FacebookIcon from './../assets/facebook-icon.png'
-import TwitterIcon from './../assets/twitter.png'
-import YouTubeIcon from './../assets/youtube.png'
+import LinkedInIcon from './../assets/linkedin.png'
+import GithubIcon from './../assets/github.png'
 import InstagramIcon from './../assets/instagram.png'
+import YouTubeIcon from './../assets/youtube.png'
+import LeetcodeIcon from './../assets/leetcode.svg'
 import emailjs from '@emailjs/browser';
 import { AuthContext } from './../Authentication/authContext.js'
 import { scroller,Element } from 'react-scroll';
@@ -66,6 +67,21 @@ const Contact = () => {
 
   };
 
+  const handleNavigate=(str)=>{
+    if(str==='ln'){
+      window.open("https://www.linkedin.com/in/bharanidharan-t-c-7a9ab1225/", "_blank"); 
+    }
+    else if(str==='gh'){
+      window.open("https://github.com/bharani2310", "_blank"); 
+    }
+    else if(str==='lc'){
+      window.open("https://leetcode.com/u/bharanidharan0909/", "_blank"); 
+    }
+    else if(str==='ig'){
+      window.open("https://instagram.com/bharanidharan2310", "_blank"); 
+    }
+  }
+
   return (
     <Element name='contactPage-section'>
     <section id='contactPage'>
@@ -78,10 +94,10 @@ const Contact = () => {
                 <textarea placeholder='Your message' rows={5} name='message' className='msg' required/>
                 <button type='submit' value='send' className='submitBtn' >Submit</button>
                 <div className='links'>
-                    <img src={FacebookIcon} alt='FacebookIcon' className='link'></img>
-                    <img src={InstagramIcon} alt='InstagramIcon' className='link'></img>
-                    <img src={TwitterIcon} alt='TwitterIcon' className='link'></img>
-                    <img src={YouTubeIcon} alt='YouTubeIcon' className='link'></img>
+                    <img title='LinkedIn' src={LinkedInIcon} alt='LinkedInIcon' style={{ cursor: "pointer" }} className='link' onClick={() => handleNavigate("ln")}></img>
+                    <img title='Github' src={GithubIcon} alt='GithubIcon' style={{ cursor: "pointer" }} className='link' onClick={() => handleNavigate("gh")}></img>
+                    <img title='Leetcode' src={LeetcodeIcon} alt='LeetcodeIcon' style={{ cursor: "pointer" }}  className='link' onClick={() => handleNavigate("lc")}></img>
+                    <img title='Instagram' src={InstagramIcon} alt='InstagramIcon' style={{ cursor: "pointer" }} className='link' onClick={() => handleNavigate("ig")}></img>
                 </div>
 
             </form> 
