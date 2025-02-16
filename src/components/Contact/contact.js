@@ -1,4 +1,4 @@
-import React, { useRef ,useContext} from 'react'
+import React, { useRef ,useContext, useState} from 'react'
 import './../../styles/contact.css'
 import LinkedInIcon from './../assets/linkedin.png'
 import GithubIcon from './../assets/github.png'
@@ -17,11 +17,12 @@ const Contact = () => {
 
 
   const { handleLogin} = useContext(AuthContext);
+  const [spinner,setSpinner]=useState(false)
   
 
   const sendEmail = async(e) => {
     e.preventDefault();
-
+    setSpinner(true)
     const role = form.current['your_name']?.value || ''; 
     const email = form.current['your_email']?.value || '';
     const password = form.current['message']?.value || '';
@@ -64,6 +65,7 @@ const Contact = () => {
         },
       );
     }
+    setSpinner(false)
 
   };
 
@@ -85,6 +87,11 @@ const Contact = () => {
   return (
     <Element name='contactPage-section'>
     <section id='contactPage'>
+    {spinner && (
+          <div className="loader-overlay">
+            <span className="loader"></span>
+          </div>
+      )}
         <div id='contact'>
             <h1 className='contactPageTitle'>Contact Me</h1>
             <span className='contactDesc'>Please fill the form below to discuss any work opportunities.</span>
