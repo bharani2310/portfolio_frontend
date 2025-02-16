@@ -88,7 +88,7 @@ const ProjectTemplate = ({ id, pic, project, description, url ,overview,features
               <p className="card-text">{description}</p>
               <div className="button-container">
                 <Link to={`/project/${id}`} className='card-btn'>Learn more</Link>
-                <Link to={url} className='card-btn'>Live</Link>
+                {url && <Link to={url} className='card-btn'>Live</Link>}
               </div>
             </div>
           </div>

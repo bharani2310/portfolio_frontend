@@ -2,11 +2,12 @@ import React,{useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom';
 import { getSingleProject } from '../support';
 import './../../../styles/projectDescription.css'
-
+import { useNavigate,Link } from "react-router-dom";
 
 const ProjectDescription = () => {
 
     const { id } = useParams();
+    const navigate = useNavigate();
     const [data, setData] = useState({
         id: "",
         pic: "",
@@ -103,6 +104,10 @@ const ProjectDescription = () => {
                     <p>{data.deployment}</p>
                 </>
             )}
+            <div className='style-btn'>
+                <button className='btn' onClick={() => navigate(-1)}>Back</button>
+                {data?.url && <Link to={data?.url} className='btn'>Live</Link>}
+            </div>
         </div>
 
     )

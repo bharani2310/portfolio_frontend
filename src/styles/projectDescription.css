@@ -46,6 +46,13 @@
     height: 200px;
 }
 
+.style-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 @media screen and (max-width:480px) {
     .project-Desc{
         max-width: 80%;
