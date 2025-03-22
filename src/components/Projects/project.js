@@ -7,6 +7,7 @@ import ProjectCreateForm from './projectCreateForm.js'
 import {Link} from 'react-router-dom';
 import {getProject} from './support.js'
 import { Element } from 'react-scroll'
+import { isCacheValid } from '../utils/TimeStamp.js'
 
 
 
@@ -16,17 +17,30 @@ const Project = () => {
   const [scroll,setScroll]=useState(true)
   const [projects,setProjects]=useState([])
   
-  const handleGet = async() => {
+  const handleGet = async () => {
     try {
-      const result = await getProject();
-      if(result.success){
-        setProjects(result.data)
-        // console.log("Project",project)
-      }
-    } catch (error) {
+        // Retrieve cached data and check if it's valid
+        const storedProjects = JSON.parse(localStorage.getItem("projects"));
 
+        if (storedProjects && isCacheValid("projects")) {
+            setProjects(storedProjects); // Use cached data
+            return;
+        }
+
+        // If cache is expired or not available, fetch from API
+        const result = await getProject();
+
+        if (result.success) {
+            localStorage.setItem("projects", JSON.stringify(result.data)); // Save data
+            localStorage.setItem("projects_timestamp", Date.now()); // Store timestamp
+            setProjects(result.data); // Update state
+        }
+    } catch (error) {
+        console.error("Error fetching projects:", error);
     }
-  }
+};
+
+  
 
   const handleCreateClick = () => {
     setShowCreateForm(!showCreateForm)
@@ -43,6 +57,11 @@ const Project = () => {
     }
     setScroll(!scroll)
   }
+
+  const handleUpdateProject = (updatedProject) => {
+    setProjects(updatedProject);
+    setShowCreateForm(false)
+  };
 
     useEffect(() => {
       handleGet();  
@@ -66,7 +85,9 @@ const Project = () => {
                   <div  id={'createProject'}>
                   {isLoggedIn && showCreateForm && (
                     <div>
-                      <ProjectCreateForm/>
+                      <ProjectCreateForm
+                          handleUpdateProject={handleUpdateProject} 
+                      />
                     </div>
                   )}
                   </div>
@@ -94,6 +115,7 @@ const Project = () => {
             demo={project.demo}
             challenges={project.challenges}
             deployment={project.deployment}
+            handleUpdateProject={handleUpdateProject} 
           />
         ))}
         </div>

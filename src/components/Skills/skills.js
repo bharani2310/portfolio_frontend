@@ -6,6 +6,7 @@ import { AuthContext } from './../Authentication/authContext.js'
 import SkillCreateForm from './skillcreateform.js';
 import { getSkill,transformData } from './support.js';
 import { Element } from 'react-scroll';
+import { isCacheValid } from '../utils/TimeStamp.js'
 
 const Skills = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -30,21 +31,42 @@ const Skills = () => {
     setScroll(!scroll)
   }
 
-  const handleSkill = async() => {
-    setSpinner(true)
-    try {
-      const result=await getSkill();
-      if(result.success){
-        const data = result.data.map(transformData);
-        const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        setSkills(sortedData);
-      }
-    } catch (error) {
-      
-    }
-    setSpinner(false)
-  }
+  const handleSkill = async () => {
+    setSpinner(true);
 
+    try {
+        const cachedSkills = JSON.parse(localStorage.getItem("experience"));
+
+        if (cachedSkills && isCacheValid("experience")) {
+            setSkills(cachedSkills); // Use cached data
+            setSpinner(false);
+            return;
+        }
+
+        const result = await getSkill();
+
+        if (result.success) {
+            const data = result.data.map(transformData);
+            const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            setSkills(sortedData);
+            localStorage.setItem("experience", JSON.stringify(sortedData));
+            localStorage.setItem("experience_timestamp", Date.now()); // Store timestamp
+        }
+    } catch (error) {
+        console.error("Error fetching skills:", error);
+    }
+
+    setSpinner(false);
+};
+
+  
+
+  const handleUpdateSkill = (updatedSkill) => {
+    setSkills(updatedSkill);
+    setShowCreateForm(false)
+  };
+  
 
 
     useEffect(() => {
@@ -78,7 +100,9 @@ const Skills = () => {
       <div  id='create'>
         {isLoggedIn && showCreateForm && (
           <div>
-            <SkillCreateForm/>
+            <SkillCreateForm 
+            handleUpdateSkill={handleUpdateSkill} 
+            />
           </div>
         )}
       </div>
@@ -94,6 +118,7 @@ const Skills = () => {
             role={skill.role}
             duration={skill.duration}
             description={skill.description}
+            handleUpdateSkill={handleUpdateSkill} 
           />
         ))}
       </div>

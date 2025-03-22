@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 
 
-const ProjectCreateForm = () => {
+const ProjectCreateForm = ({handleUpdateProject}) => {
     const form = useRef();
     
     const [pic,setPic]=useState('')
@@ -27,7 +27,6 @@ const ProjectCreateForm = () => {
         challenges:"",
         deployment:""
       });
-      console.log("form",formData)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,8 +43,6 @@ const ProjectCreateForm = () => {
           try {
             const base64 = await convertToBase64(file);
             setPic(base64);
-            console.log("Converted Base64:", base64);
-            console.log("Converted :", pic);
           } catch (error) {
             console.error("Error converting file to Base64:", error);
           }
@@ -69,14 +66,15 @@ const ProjectCreateForm = () => {
               challenges:formData.challenges,
               deployment:formData.deployment
             };
-            console.log("final Data",data)
             try {
                   const result=await createProject(data);
                   if(result.success){
                     toast.success("Created Successfully...")
-                    setTimeout(() => {
-                      window.location.reload();
-                    }, 1000);
+                    const newProject=result?.data
+                    const existingProject = JSON.parse(localStorage.getItem("projects")) || [];
+                    existingProject.push(newProject);
+                    localStorage.setItem("projects", JSON.stringify(existingProject));
+                    handleUpdateProject(existingProject)
                   }
                 } catch (error) {
                   toast.error("Oops try again...")

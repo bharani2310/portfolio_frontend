@@ -6,6 +6,8 @@ import Form from './Form.js';
 import { getTech, deleteTech } from './support.js';
 import { Element } from 'react-scroll';
 import { toast } from 'react-toastify';
+import { isCacheValid } from '../utils/TimeStamp.js'
+
 
 const Tech = () => {
     const { isLoggedIn } = useContext(AuthContext);
@@ -27,23 +29,45 @@ const Tech = () => {
         fetchSkills(); // Refresh after closing
     };
 
+    const handleUpdateSkill = (updatedSkill) => {
+        setSkills(updatedSkill);
+      };
+
     const handleClick = () => {
         setEditingSkill(null);
         setIsFormVisible(true);
     };
 
     const fetchSkills = async () => {
-        setSpinner(true)
+        setSpinner(true);
+    
         try {
+            const storedSkills = JSON.parse(localStorage.getItem("tech"));
+    
+            // Check if cached data is valid
+            if (storedSkills && isCacheValid("tech")) {
+                setSkills(storedSkills); // Load from localStorage
+                setSpinner(false);
+                return;
+            }
+    
+            // If cache is expired or not available, fetch from API
             const result = await getTech();
+    
             if (result.success) {
-                setSkills(result.data);
+                localStorage.setItem("tech", JSON.stringify(result.data)); // Save to localStorage
+                localStorage.setItem("tech_timestamp", Date.now()); // Store timestamp
+                setSkills(result.data); // Update state
             }
         } catch (error) {
             console.error("Error fetching skills:", error);
+        } finally {
+            setSpinner(false); // Ensure spinner stops
         }
-        setSpinner(false)
     };
+    
+    
+    
 
     useEffect(() => {
         fetchSkills();
@@ -53,12 +77,9 @@ const Tech = () => {
         const confirmDelete = window.confirm("Are you sure you want to delete this skill?");
         setSpinner(true)
         if (confirmDelete) {
-            const result = await deleteTech(id);
+            const result = await deleteTech(id,handleUpdateSkill);
             if (result.success) {
                 toast.success("Deleted Successfully...")
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
             }
         }
         setSpinner(false)
@@ -113,7 +134,10 @@ const Tech = () => {
                 {isFormVisible && (
                     <div className="modal-overlay">
                         <div className="modal">
-                            <Form onClose={handleClose} editingSkill={editingSkill} />
+                            <Form onClose={handleClose} 
+                            editingSkill={editingSkill}
+                            handleUpdateSkill={handleUpdateSkill} 
+                            />
                         </div>
                     </div>
                 )}

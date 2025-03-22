@@ -7,7 +7,7 @@ import SkillUpdateForm from './skillupdateform.js';
 import { BASE_URL } from '../utils/config.js';
 import { toast } from 'react-toastify';
 
-const Template = ({id, pic, company,role, duration, description }) => {
+const Template = ({id, pic, company,role, duration, description,handleUpdateSkill }) => {
 
   const updatedString = duration.replace('Invalid Date', 'Present');
   const { isLoggedIn } = useContext(AuthContext);
@@ -88,9 +88,17 @@ const Template = ({id, pic, company,role, duration, description }) => {
           return toast.error(result.message);
         }
         toast.success("Deleted Successfully...")
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        
+        let experience = JSON.parse(localStorage.getItem("experience")) || [];
+
+        // Filter out the skill with the matching ID
+        experience = experience.filter((skill) => skill._id !== id);
+
+        // Update local storage
+        localStorage.setItem("experience", JSON.stringify(experience));
+
+        // Update state
+        handleUpdateSkill(experience);
         
       } catch (error) {
         toast.error('Oops. Try Again');
@@ -130,7 +138,17 @@ const Template = ({id, pic, company,role, duration, description }) => {
         </div>
 
         <div id={`update-${id}`}>
-          {isLoggedIn && showUpdateForm && <SkillUpdateForm skill={array}/>}
+        {isLoggedIn && showUpdateForm && (
+        <SkillUpdateForm 
+          skill={array} 
+          onClose={() => {
+            setShowUpdateForm(false);
+            setScroll(!scroll); 
+          }} 
+          handleUpdateSkill={handleUpdateSkill}
+        />
+      )}
+
         </div>
     </section>
     

@@ -4,8 +4,9 @@ import { updateProject } from './support';
 import '../../styles/projectUpdateForm.css'
 import { toast } from 'react-toastify';
 
-const ProjectUpdateForm = ({project,onClose}) => {
+const ProjectUpdateForm = ({project,onClose,handleUpdateProject}) => {
 
+const projectId=project.id
 
   const form = useRef();
   const [pic,setPic]=useState(null)
@@ -42,7 +43,6 @@ const ProjectUpdateForm = ({project,onClose}) => {
       try {
         const base64 = await convertToBase64(file);
         setPic(base64);
-        console.log("Converted Base64:", base64);
       } catch (error) {
         console.error("Error converting file to Base64:", error);
       }
@@ -67,15 +67,23 @@ const ProjectUpdateForm = ({project,onClose}) => {
           challenges:formData.challenges,
           deployment:formData.deployment
         };
-        console.log("Update",data)
     
       try {
             const result=await updateProject(project.id,data);
             if(result.success){
               toast.success('Updated Successfully')
-              setTimeout(() => {
-                window.location.reload();
-              }, 1000);
+              onClose()
+              let projects = JSON.parse(localStorage.getItem("projects")) || [];
+  
+              const index = projects.findIndex((proj) => proj._id === projectId);
+              if (index !== -1) {
+                projects[index] = { ...projects[index], ...result?.data };
+              } else {
+                projects.push(result?.data);
+              }
+      
+              localStorage.setItem("projects", JSON.stringify(projects));
+              handleUpdateProject((projects)); 
             }
             } catch (error) {
                 toast.error("Oops try again...")
@@ -114,7 +122,7 @@ const ProjectUpdateForm = ({project,onClose}) => {
                     <textarea placeholder='Description' rows={5} name='description' className='msg' value={formData.description || ''} onChange={handleChange} required/>
                     <input type='text' className='name' value={formData.url || ''} placeholder='Project URL (Optional)' name='url' onChange={handleChange} />
 
-                    <textarea placeholder='Project Overview' value={formData.overview || ''} rows={5} name='long_description' className='msg' onChange={handleChange} />
+                    <textarea placeholder='Project Overview' value={formData.overview || ''} rows={5} name='overview' className='msg' onChange={handleChange} />
                     <textarea placeholder='Project Features' rows={5} value={formData.features || ''} name='features' className='msg' onChange={handleChange} />
                     <input type='text' className='name' placeholder='Frontend' value={formData.frontend || ''} name='frontend' onChange={handleChange} />
                     <input type='text' className='name' placeholder='Backend' value={formData.backend || ''} name='backend' onChange={handleChange} />

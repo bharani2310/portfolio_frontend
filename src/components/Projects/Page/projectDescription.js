@@ -25,20 +25,27 @@ const ProjectDescription = () => {
       });
       const [spinner,setSpinner]=useState(false)
 
-    const handleGet = async() => {
-        setSpinner(true)
+      const handleGet = async () => {
+        setSpinner(true);
         try {
-          const result = await getSingleProject(id);
-          if(result.success){
-             console.log("Single Project",result.data.frontend)
-             setData(result.data)
-          }
+            const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+            const foundProject = storedProjects.find(proj => proj._id === id);
+            if (foundProject) {
+                setData(foundProject); // Use stored data
+            } else {
+                const result = await getSingleProject(id);
+                if (result.success) {
+                    localStorage.setItem("projects", JSON.stringify([...storedProjects, result.data]));
+                    setData(result.data); // Update state
+                }
+            }
         } catch (error) {
-    
+            console.error("Error fetching project:", error);
+        } finally {
+            setSpinner(false); // Ensure spinner stops
         }
-        setSpinner(false)
-      }
-
+    };
+    
     useEffect(() => {
         handleGet();  
     },[]);

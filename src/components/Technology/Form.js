@@ -5,7 +5,7 @@ import { createTechSkill, updateTech } from './support.js';
 import { toast } from 'react-toastify';
 
 
-const Form = ({ onClose, editingSkill }) => {
+const Form = ({ onClose, editingSkill,handleUpdateSkill }) => {
     const form = useRef();
     const categories = ["Frontend", "Backend", "Database","Programming Language", "Deployment", "Tools"];
 
@@ -43,14 +43,11 @@ const Form = ({ onClose, editingSkill }) => {
         setSpinner(true)
         try {
             if (editingSkill) {
-                await updateTech(editingSkill._id, formData);
+                await updateTech(editingSkill._id, formData,handleUpdateSkill);
             } else {
-                await createTechSkill(formData);
+                await createTechSkill(formData,handleUpdateSkill);
             }
             onClose();
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
         } catch (error) {
             console.error("Error submitting skill:", error);
         }

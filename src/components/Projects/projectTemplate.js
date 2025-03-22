@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom';
 import { deleteProject } from './support.js';
 import { toast } from 'react-toastify';
 
-const ProjectTemplate = ({ id, pic, project, description, url ,overview,features,frontend,backend,database,demo,challenges,deployment}) => {
+const ProjectTemplate = ({ id, pic, project, description, url ,overview,features,frontend,backend,database,demo,challenges,deployment,handleUpdateProject}) => {
   const { isLoggedIn } = useContext(AuthContext);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [spinner,setSpinner]=useState(false)
@@ -47,9 +47,10 @@ const ProjectTemplate = ({ id, pic, project, description, url ,overview,features
         const result= await deleteProject(id);
         if(result.success){
           toast.success("Deleted Successfully...")
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          let projects = JSON.parse(localStorage.getItem("projects")) || [];
+          projects = projects.filter((proj) => proj._id !== id);
+          localStorage.setItem("projects", JSON.stringify(projects));
+          handleUpdateProject(projects);
         }
       } catch (error) {
         toast.error("Oops try again...")
@@ -98,7 +99,8 @@ const ProjectTemplate = ({ id, pic, project, description, url ,overview,features
       {showUpdateForm && (
         <div className="modal-overlay">
           <div className="modal">
-            <ProjectUpdateForm project={data} onClose={handleClose} />
+            <ProjectUpdateForm project={data} onClose={handleClose} handleUpdateProject={handleUpdateProject} 
+            />
           </div>
         </div>
       )}

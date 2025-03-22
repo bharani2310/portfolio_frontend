@@ -21,23 +21,30 @@ export async function createSkill(data){
     }
 }
 
-export async function getSkill(){
+export async function getSkill() {
     try {
-        const response=await fetch(`${BASE_URL}/getSkill/all`,{
-            method:'GET',
-            headers:{
-                'content-type':'application/json',
+        const response = await fetch(`${BASE_URL}/getSkill/all`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
             }
         });
-        const result= await response.json();
-        if(!result.success){
-            console.log('Failed to fetch');
+
+        const result = await response.json();
+
+        if (result.success && result.data) {
+            localStorage.setItem("experience", JSON.stringify(result.data));
+            console.log("Fetched and stored skills data:", result.data);
+        } else {
+            console.log("Failed to fetch skills");
         }
+
         return result;
     } catch (error) {
-        console.log("error :",error)
+        console.log("Error fetching skills:", error);
     }
 }
+
 
 
 export const transformData = (data) => {

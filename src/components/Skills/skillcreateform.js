@@ -5,8 +5,9 @@ import convertToBase64 from './../Image_conversion/converter.js'
 import {BASE_URL} from '../utils/config.js'
 import './../../styles/skillCreateForm.css'
 import { ToastContainer, toast } from 'react-toastify';
+import { transformData } from './support.js';
 
-const SkillCreateForm = () => {
+const SkillCreateForm = ({handleUpdateSkill}) => {
 
   const form = useRef();
   const [pic,setPic]=useState('')
@@ -29,8 +30,6 @@ const SkillCreateForm = () => {
     try {
       const base64 = await convertToBase64(file);
       setPic(base64);
-      console.log("Converted Base64:", base64);
-      console.log("Converted :", pic);
     } catch (error) {
       console.error("Error converting file to Base64:", error);
     }
@@ -55,7 +54,6 @@ const SkillCreateForm = () => {
       end:check ? "Present" : formData.end,
       description: formData.description,
     };
-    console.log("final Data",data)
 
      try {
         const response=await fetch(`${BASE_URL}/createSkill/newSkill`,{
@@ -68,9 +66,26 @@ const SkillCreateForm = () => {
         const result= await response.json();
         if(result.success){
           toast.success('Created Successfully')
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+
+          // const newData = result?.data;
+
+          const Data = Array.isArray(result?.data) ? result.data.map(transformData) : [transformData(result?.data)];
+
+          const newData=Data[0]
+
+
+          // Get existing data from localStorage
+          const existingData = JSON.parse(localStorage.getItem("experience")) || [];
+
+          // Push new data
+          existingData.push(newData);
+
+          const sortedData = existingData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+          // Save updated data back to localStorage
+          localStorage.setItem("experience", JSON.stringify(sortedData));
+          handleUpdateSkill(sortedData)
+
         }
         else{
           toast.error('Oops...Try Again')
@@ -90,7 +105,6 @@ const SkillCreateForm = () => {
     end:"",
     description: "",
   });
-  console.log("form",formData)
 
 
   useEffect(() => {

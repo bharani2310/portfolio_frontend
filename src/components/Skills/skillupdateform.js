@@ -5,9 +5,9 @@ import convertToBase64 from './../Image_conversion/converter.js'
 import {BASE_URL} from '../utils/config.js'
 import './../../styles/skillCreateForm.css'
 import { toast } from 'react-toastify';
+import { transformData } from './support.js';
 
-const SkillUpdateForm = ({skill}) => {
-
+const SkillUpdateForm = ({skill,onClose ,handleUpdateSkill}) => {
 
   const form = useRef();
   const [pic,setPic]=useState(null)
@@ -15,6 +15,9 @@ const SkillUpdateForm = ({skill}) => {
   const[spinner,setSpinner]=useState(false)
   const endDateRef = useRef(null);
   const id=skill.id
+
+  const cachedSkill = JSON.parse(localStorage.getItem("experience"));
+  const [skillData, setSkillData] = useState(skill);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,44 +48,58 @@ const SkillUpdateForm = ({skill}) => {
     });
   };
   
-
   const handleUpdate = async (e) => {
-    e.preventDefault()
-    setSpinner(true)
+    e.preventDefault();
+    setSpinner(true);
+    
     const data = {
       pic,
       company: formData.company,
       role: formData.role,
-      start:formData.start,
-      end:check ? "Present" : formData.end,
+      start: formData.start,
+      end: check ? "Present" : formData.end,
       description: formData.description,
     };
-    console.log("Update",data)
-
-     try {
-        const response=await fetch(`${BASE_URL}/updateSkill/${id}`,{
-            method:'PUT',
-            headers:{
-                'content-type':'application/json',
-            },
-            body:JSON.stringify(data)
-        });
-        const result= await response.json();
-        if(result.success){
-          toast.success('Updated Successfully')
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+  
+  
+    try {
+      const response = await fetch(`${BASE_URL}/updateSkill/${id}`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      });
+  
+      const result = await response.json();
+  
+      if (result.success) {
+        toast.success("Updated Successfully");
+        onClose();
+        const Data = Array.isArray(result?.data) ? result.data.map(transformData) : [transformData(result?.data)];
+        const newData=Data[0]
+        let experience = JSON.parse(localStorage.getItem("experience")) || [];
+  
+        const index = experience.findIndex((skill) => skill._id === id);
+  
+        if (index !== -1) {
+          experience[index] = { ...experience[index], ...newData };
+        } else {
+          experience.push(result.data);
         }
-        else{
-          toast.error('Oops...Try Again')
-        }
+  
+        localStorage.setItem("experience", JSON.stringify(experience));
+        handleUpdateSkill((experience)); 
+        setSkillData((prev) => ({ ...prev, ...result.data }));
+  
+      } else {
+        toast.error("Oops...Try Again");
+      }
     } catch (error) {
-        console.log("error :",error)
+      console.log("error :", error);
     }
-
-    setSpinner(false)
-  }
+  
+    setSpinner(false);
+  };
+  
 
   const [formData, setFormData] = useState({
     company: skill.company,

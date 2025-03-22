@@ -10,6 +10,7 @@ import { AuthContext } from './../Authentication/authContext.js'
 import { scroller,Element } from 'react-scroll';
 import { ToastContainer, toast } from 'react-toastify';
 import '../../styles/loader.css'
+import { isCacheValid } from '../utils/TimeStamp.js'
 
 const Intro = () => {
 
@@ -28,7 +29,6 @@ const Intro = () => {
       if (selectedFile) {
         const baseImage = await convertToBase64(selectedFile); // Wait for base64 result
         setImage(baseImage);  // Set the base64 image for preview
-        console.log("Image", baseImage);  // You can log it to verify
         setFile(selectedFile); // Update file state for upload
       }
     } catch (error) {
@@ -40,32 +40,54 @@ const Intro = () => {
 
   const handleGet = async (name) => {
     try {
-      const result = await getImage(name); 
-      if (result && result.data) {
-        setProfile(result.data.image);
-        console.log("Profile image fetched:"); 
-      }
+        const cachedImage = JSON.parse(localStorage.getItem("profile-pic"));
+
+        if (cachedImage && isCacheValid("profile-pic")) {
+            setProfile(cachedImage);
+            return;
+        }
+
+        const result = await getImage(name);
+        if (result && result.data) {
+            setProfile(result.data.image);
+            localStorage.setItem("profile-pic", JSON.stringify(result.data.image));
+            localStorage.setItem("profile-pic_timestamp", Date.now()); 
+        }
     } catch (error) {
-      console.error('Error fetching image:', error);
+        console.error("Error fetching image:", error);
     }
-  };
+};
+
+  
 
   const handleEdit = async() =>{
     setShowEditForm(!showEditForm)
-    console.log("show",showEditForm)
+    // console.log("show",showEditForm)
   }
   
   
-  const handleUpload = () => {
-    setSpinner(true)
-    UploadImage(file, () => {
-      toast.success("Image Uploaded Successfully");
+  const handleUpload = async () => {
+    setSpinner(true); 
   
-      setTimeout(() => {
-        window.location.reload();
-        setSpinner(false)
-      }, 1000); 
-    });
+    try {
+      await UploadImage(file);
+  
+      toast.success("Image Uploaded Successfully");
+
+      const result = await getImage("Profile-Pic");
+  
+      if (result && result.data) {
+        setProfile(result.data.image);
+        localStorage.setItem("profile-pic", JSON.stringify(result?.data?.image)); 
+      }
+  
+      setImage('');
+      setFile(null); 
+    } catch (error) {
+      console.error("Upload failed:", error);
+    } finally {
+      setSpinner(false); 
+    }
   };
   
 
