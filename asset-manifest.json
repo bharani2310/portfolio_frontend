@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.de48a339.css",
-    "main.js": "/static/js/main.cf96cb39.js",
+    "main.js": "/static/js/main.e4341aea.js",
     "static/media/load.gif": "/static/media/load.406e0a4a13b483b25187.gif",
     "static/media/instagram.png": "/static/media/instagram.75e0546a6b5abe4c0506.png",
     "static/media/github.png": "/static/media/github.f11021803f68852df283.png",
@@ -12,10 +12,10 @@
     "static/media/leetcode.svg": "/static/media/leetcode.67737b26384e4cd485344f3876e40569.svg",
     "index.html": "/index.html",
     "main.de48a339.css.map": "/static/css/main.de48a339.css.map",
-    "main.cf96cb39.js.map": "/static/js/main.cf96cb39.js.map"
+    "main.e4341aea.js.map": "/static/js/main.e4341aea.js.map"
   },
   "entrypoints": [
     "static/css/main.de48a339.css",
-    "static/js/main.cf96cb39.js"
+    "static/js/main.e4341aea.js"
   ]
 }
