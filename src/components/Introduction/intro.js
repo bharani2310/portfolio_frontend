@@ -38,25 +38,41 @@ const Intro = () => {
   
 
 
-  const handleGet = async (name) => {
-    try {
-        const cachedImage = JSON.parse(localStorage.getItem("profile-pic"));
+//   const handleGet = async (name) => {
+//     try {
+//         const cachedImage = JSON.parse(localStorage.getItem("profile-pic"));
 
-        if (cachedImage && isCacheValid("profile-pic")) {
-            setProfile(cachedImage);
-            return;
-        }
+//         if (cachedImage && isCacheValid("profile-pic")) {
+//             setProfile(cachedImage);
+//             return;
+//         }
 
-        const result = await getImage(name);
-        if (result && result.data) {
-            setProfile(result.data.image);
-            localStorage.setItem("profile-pic", JSON.stringify(result.data.image));
-            localStorage.setItem("profile-pic_timestamp", Date.now()); 
-        }
-    } catch (error) {
-        console.error("Error fetching image:", error);
+//         const result = await getImage(name);
+//         if (result && result.data) {
+//             setProfile(result.data.image);
+//             localStorage.setItem("profile-pic", JSON.stringify(result.data.image));
+//             localStorage.setItem("profile-pic_timestamp", Date.now()); 
+//         }
+//     } catch (error) {
+//         console.error("Error fetching image:", error);
+//     }
+// };
+
+const handleGet = async (name) => {
+  try {
+    const cachedImage = JSON.parse(localStorage.getItem("portfolioData"));
+    if (cachedImage) {
+      const image = cachedImage?.data?.images[0]?.image;
+      if (image) {
+        setProfile(image);
+      }
     }
+  } catch (error) {
+    console.error("Error loading image from cache:", error);
+  }
 };
+
+
 
   
 

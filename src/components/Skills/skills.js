@@ -31,34 +31,58 @@ const Skills = () => {
     setScroll(!scroll)
   }
 
-  const handleSkill = async () => {
-    setSpinner(true);
+//   const handleSkill = async () => {
+//     setSpinner(true);
 
-    try {
-        const cachedSkills = JSON.parse(localStorage.getItem("experience"));
+//     try {
+//         const cachedSkills = JSON.parse(localStorage.getItem("experience"));
 
-        if (cachedSkills && isCacheValid("experience")) {
-            setSkills(cachedSkills); // Use cached data
-            setSpinner(false);
-            return;
-        }
+//         if (cachedSkills && isCacheValid("experience")) {
+//             setSkills(cachedSkills); // Use cached data
+//             setSpinner(false);
+//             return;
+//         }
 
-        const result = await getSkill();
+//         const result = await getSkill();
 
-        if (result.success) {
-            const data = result.data.map(transformData);
-            const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+//         if (result.success) {
+//             const data = result.data.map(transformData);
+//             const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-            setSkills(sortedData);
-            localStorage.setItem("experience", JSON.stringify(sortedData));
-            localStorage.setItem("experience_timestamp", Date.now()); // Store timestamp
-        }
-    } catch (error) {
-        console.error("Error fetching skills:", error);
+//             setSkills(sortedData);
+//             localStorage.setItem("experience", JSON.stringify(sortedData));
+//             localStorage.setItem("experience_timestamp", Date.now()); // Store timestamp
+//         }
+//     } catch (error) {
+//         console.error("Error fetching skills:", error);
+//     }
+
+//     setSpinner(false);
+// };
+
+const handleSkill = async () => {
+  setSpinner(true);
+
+  try {
+    const cachedSkills = JSON.parse(localStorage.getItem("portfolioData"));
+
+    if (cachedSkills) {
+      // Sort cached skills by createdAt descending
+      let skills=cachedSkills?.data?.skills
+      skills=skills.map(transformData)
+      const sortedSkills = skills.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setSkills(sortedSkills);
     }
+  } catch (error) {
+    console.error("Error loading skills from cache:", error);
+  }
 
-    setSpinner(false);
+  setSpinner(false);
 };
+
 
   
 

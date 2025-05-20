@@ -17,30 +17,43 @@ const Project = () => {
   const [scroll,setScroll]=useState(true)
   const [projects,setProjects]=useState([])
   
-  const handleGet = async () => {
-    try {
-        // Retrieve cached data and check if it's valid
-        const storedProjects = JSON.parse(localStorage.getItem("projects"));
+//   const handleGet = async () => {
+//     try {
+//         // Retrieve cached data and check if it's valid
+//         const storedProjects = JSON.parse(localStorage.getItem("projects"));
 
-        if (storedProjects && isCacheValid("projects")) {
-            setProjects(storedProjects); // Use cached data
-            return;
-        }
+//         if (storedProjects && isCacheValid("projects")) {
+//             setProjects(storedProjects); // Use cached data
+//             return;
+//         }
 
-        // If cache is expired or not available, fetch from API
-        const result = await getProject();
+//         // If cache is expired or not available, fetch from API
+//         const result = await getProject();
 
-        if (result.success) {
-            localStorage.setItem("projects", JSON.stringify(result.data)); // Save data
-            localStorage.setItem("projects_timestamp", Date.now()); // Store timestamp
-            setProjects(result.data); // Update state
-        }
-    } catch (error) {
-        console.error("Error fetching projects:", error);
+//         if (result.success) {
+//             localStorage.setItem("projects", JSON.stringify(result.data)); // Save data
+//             localStorage.setItem("projects_timestamp", Date.now()); // Store timestamp
+//             setProjects(result.data); // Update state
+//         }
+//     } catch (error) {
+//         console.error("Error fetching projects:", error);
+//     }
+// };
+
+
+const handleGet = async () => {
+  try {
+    const cachedProjects = JSON.parse(localStorage.getItem("portfolioData"));
+    if (cachedProjects) {
+      setProjects(cachedProjects?.data?.projects);
     }
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+  }
 };
 
-  
+
+
 
   const handleCreateClick = () => {
     setShowCreateForm(!showCreateForm)

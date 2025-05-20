@@ -71,11 +71,13 @@
     color: yellow;
 }
 
-.introPara{
+.introPara {
     font-size: medium;
     font-weight: 300;
     letter-spacing: 1px;
+    max-width: 600px; 
 }
+
 
 .btn{
     background: white;

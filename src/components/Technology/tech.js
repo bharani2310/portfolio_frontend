@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import '../../styles/tech.css';
+import '../../styles/loader.css';
 import { AuthContext } from './../Authentication/authContext.js';
 import add from '../assets/add.png';
 import Form from './Form.js';
@@ -14,7 +15,7 @@ const Tech = () => {
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [skills, setSkills] = useState([]);
     const [editingSkill, setEditingSkill] = useState(null);
-    const [spinner,setSpinner]=useState(false)
+    const [spinner,setSpinner]=useState(true)
 
     const handleEdit = (skill) => {
         setEditingSkill(skill); // Set the skill to be edited
@@ -38,36 +39,50 @@ const Tech = () => {
         setIsFormVisible(true);
     };
 
-    const fetchSkills = async () => {
-        setSpinner(true);
+    // const fetchSkills = async () => {
+    //     try {
+    //         const storedSkills = JSON.parse(localStorage.getItem("tech"));
     
-        try {
-            const storedSkills = JSON.parse(localStorage.getItem("tech"));
+    //         // Check if cached data is valid
+    //         if (storedSkills && isCacheValid("tech")) {
+    //             setSkills(storedSkills); // Load from localStorage
+    //             setSpinner(false);
+    //             return;
+    //         }
     
-            // Check if cached data is valid
-            if (storedSkills && isCacheValid("tech")) {
-                setSkills(storedSkills); // Load from localStorage
-                setSpinner(false);
-                return;
-            }
+    //         // If cache is expired or not available, fetch from API
+    //         const result = await getTech();
     
-            // If cache is expired or not available, fetch from API
-            const result = await getTech();
+    //         if (result.success) {
+    //             localStorage.setItem("tech", JSON.stringify(result.data)); // Save to localStorage
+    //             localStorage.setItem("tech_timestamp", Date.now()); // Store timestamp
+    //             setSkills(result.data); // Update state
+    //         }
+    //     } catch (error) {
+    //         console.error("Error fetching skills:", error);
+    //     } finally {
+    //         setSpinner(false); // Ensure spinner stops
+    //     }
+    // };
+  
     
-            if (result.success) {
-                localStorage.setItem("tech", JSON.stringify(result.data)); // Save to localStorage
-                localStorage.setItem("tech_timestamp", Date.now()); // Store timestamp
-                setSkills(result.data); // Update state
-            }
-        } catch (error) {
-            console.error("Error fetching skills:", error);
-        } finally {
-            setSpinner(false); // Ensure spinner stops
-        }
-    };
-    
-    
-    
+const fetchSkills = async () => {
+  setSpinner(true);
+
+  try {
+    const storedSkills = JSON.parse(localStorage.getItem("portfolioData"));
+
+    if (storedSkills) {
+      setSkills(storedSkills?.data?.tech); // Load from localStorage as-is
+      setSpinner(false);
+      return;
+    }
+  } catch (error) {
+    console.error("Error fetching skills:", error);
+  }
+};
+
+
 
     useEffect(() => {
         fetchSkills();
