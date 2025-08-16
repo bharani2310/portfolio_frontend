@@ -27,6 +27,7 @@ export const PortfolioProvider = ({ children }) => {
       /* 1. Try local cache — but only if it's still fresh --------------- */
       const cached      = localStorage.getItem(CACHE_KEY);
       const cacheIsLive = isCacheValid(CACHE_KEY);
+      console.log("!!!!!Cache Status!!!!!",cacheIsLive)
 
       if (cached && cacheIsLive) {
         setPortfolio(JSON.parse(cached));
@@ -65,7 +66,7 @@ export const PortfolioProvider = ({ children }) => {
 /* ------------------------------------------------------------------ *
  *  Cache helpers
  * ------------------------------------------------------------------ */
-export const isCacheValid = (key, expiryTime = 6 * 60 * 60 * 1000) => {
+export const isCacheValid = (key, expiryTime = 1 * 60 * 60 * 1000) => {
   // Look for the timestamp that accompanied the cached payload
   const lastUpdated = parseInt(localStorage.getItem(`${key}_timestamp`), 10) || 0;
   // Return true if the data is newer than <expiryTime> (default 6 h)
